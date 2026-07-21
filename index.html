@@ -1,14 +1,191 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-    <meta http-equiv="refresh" content="0; url=Kickoff/index.html" />
-    <title>Redirecting...</title>
-    <script>
-        // Fallback for browsers that do not support meta refresh
-        window.location.href = "Kickoff/index.html";
-    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ARENA Innovator — Präsentationen &amp; Dokumentation</title>
+    <style>
+        :root {
+            --bg: #f6f7f9;
+            --surface: #ffffff;
+            --border: #e2e5ea;
+            --text: #1c2430;
+            --muted: #5b6675;
+            --accent: #d81f26;
+            --accent-soft: rgba(216, 31, 38, 0.08);
+            --shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 8px 24px rgba(16, 24, 40, 0.06);
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0e1116;
+                --surface: #161b22;
+                --border: #262c36;
+                --text: #e6edf3;
+                --muted: #9aa5b1;
+                --accent: #ff5a60;
+                --accent-soft: rgba(255, 90, 96, 0.12);
+                --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.5);
+            }
+        }
+        * { box-sizing: border-box; }
+        html { -webkit-text-size-adjust: 100%; }
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.55;
+        }
+        .wrap { max-width: 1040px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+        header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2.25rem; }
+        header img { height: 44px; width: auto; }
+        header .titles h1 { font-size: 1.6rem; margin: 0; letter-spacing: -0.01em; }
+        header .titles p { margin: 0.15rem 0 0; color: var(--muted); font-size: 0.95rem; }
+        .intro {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.25rem 1.4rem;
+            margin-bottom: 2.5rem;
+            box-shadow: var(--shadow);
+            font-size: 0.97rem;
+            color: var(--muted);
+        }
+        .intro strong { color: var(--text); }
+        h2 {
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            margin: 0 0 1rem;
+            font-weight: 600;
+        }
+        section { margin-bottom: 2.75rem; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.1rem;
+        }
+        .card {
+            display: flex;
+            flex-direction: column;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.35rem 1.4rem 1.25rem;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: var(--shadow);
+            transition: transform 0.15s ease, border-color 0.15s ease;
+        }
+        .card:hover { transform: translateY(-3px); border-color: var(--accent); }
+        .card .badge {
+            align-self: flex-start;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: var(--accent-soft);
+            border-radius: 999px;
+            padding: 0.2rem 0.65rem;
+            margin-bottom: 0.85rem;
+        }
+        .card h3 { margin: 0 0 0.35rem; font-size: 1.15rem; letter-spacing: -0.01em; }
+        .card .author { font-size: 0.85rem; color: var(--muted); margin: 0 0 0.7rem; }
+        .card p.desc { margin: 0 0 1.1rem; font-size: 0.92rem; color: var(--muted); flex: 1; }
+        .card .open {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .card:hover .open { text-decoration: underline; }
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+        footer a { color: var(--accent); }
+        .hint { font-size: 0.85rem; color: var(--muted); margin: -0.4rem 0 1rem; }
+    </style>
 </head>
 <body>
-    <p>If you are not redirected automatically, <a href="Kickoff/index.html">click here</a>.</p>
+<div class="wrap">
+    <header>
+        <img src="Kickoff/images/arenalogo.png" alt="ARENA Logo" />
+        <div class="titles">
+            <h1>ARENA Innovator</h1>
+            <p>Präsentationen &amp; Dokumentation für Stakeholder</p>
+        </div>
+    </header>
+
+    <div class="intro">
+        Diese Seite bündelt die veröffentlichten Präsentationen rund um den
+        <strong>ARENA Innovator</strong>. Neben der Kickoff-Präsentation sind hier die drei
+        Landing-Page-Varianten aus
+        <a href="https://github.com/arena-hub/arena-hub/issues/263">Issue&nbsp;#263</a>
+        eingebunden: Jede:r Entwickler:in hat eine eigene Version gebaut — das Team vergleicht
+        sie und wählt anschließend eine finale Variante aus. Alle Präsentationen basieren auf
+        <a href="https://github.com/impress/impress.js">impress.js</a> und öffnen sich
+        vollflächig.
+    </div>
+
+    <section>
+        <h2>Kickoff</h2>
+        <div class="grid">
+            <a class="card" href="Kickoff/index.html">
+                <span class="badge">Präsentation</span>
+                <h3>Kickoff</h3>
+                <p class="author">Projekt-Kickoff</p>
+                <p class="desc">Einführung und Überblick über den ARENA Innovator — Vision,
+                    Features und Projektkontext.</p>
+                <span class="open">Öffnen →</span>
+            </a>
+        </div>
+    </section>
+
+    <section>
+        <h2>Landing-Page-Varianten · Issue #263</h2>
+        <p class="hint">Kandidaten für die finale Landing Page — Navigation per Pfeiltasten,
+            Leertaste oder Klick auf einen Schritt.</p>
+        <div class="grid">
+            <a class="card" href="landingpages/sascha/index.html">
+                <span class="badge">Variante</span>
+                <h3>Sascha</h3>
+                <p class="author">Technologie- &amp; Deployment-Überblick</p>
+                <p class="desc">Visueller Überblick über Technologie-Stack, Deployment /
+                    Infrastruktur, Authentifizierung und Architektur.</p>
+                <span class="open">Öffnen →</span>
+            </a>
+            <a class="card" href="landingpages/jroesner/index.html">
+                <span class="badge">Variante</span>
+                <h3>Jroesner</h3>
+                <p class="author">Overview</p>
+                <p class="desc">Visueller Überblick über Tech-Stack, Architektur, Deployment
+                    und Features des Innovators.</p>
+                <span class="open">Öffnen →</span>
+            </a>
+            <a class="card" href="landingpages/v2/index.html">
+                <span class="badge">Variante</span>
+                <h3>V2</h3>
+                <p class="author">Overview · eigenes Design</p>
+                <p class="desc">Eigenständig gestaltete Overview-Präsentation mit Fokus auf
+                    Request-Layer und den Ideen-Lebenszyklus als State Machine.</p>
+                <span class="open">Öffnen →</span>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        Gepflegt im Repository
+        <a href="https://github.com/arena-hub/presentations">arena-hub/presentations</a>.
+        Neue Präsentationen als Unterverzeichnis ergänzen und hier verlinken.
+    </footer>
+</div>
 </body>
 </html>

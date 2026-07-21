@@ -1,0 +1,614 @@
+/* ===== Base / reset ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #1b2430;
+  background:
+    repeating-linear-gradient(0deg, rgba(27, 36, 48, 0.035) 0 1px, transparent 1px 28px),
+    repeating-linear-gradient(90deg, rgba(27, 36, 48, 0.035) 0 1px, transparent 1px 28px),
+    #f3f5f7;
+}
+
+.fallback-message {
+  display: none;
+  padding: 2em;
+  max-width: 40em;
+  margin: 2em auto;
+  border: 1px solid #dde2e7;
+  border-radius: 8px;
+  background: #fff;
+  color: #1b2430;
+}
+
+.impress-not-supported .fallback-message { display: block; }
+.impress-enabled .fallback-message { display: none; }
+
+.step { box-sizing: border-box; }
+
+/* ===== Shared design tokens & motifs, reused across every slide ===== */
+:root {
+  --paper: #f3f5f7;
+  --ink: #1b2430;
+  --ink-soft: #5b6672;
+  --card: #ffffff;
+  --line: #dde2e7;
+  --accent: #3846c8;
+  --fe: #c8102e;
+  --be: #2f7a3c;
+  --db: #2f6f9e;
+  --dev: #b8860b;
+  --danger: #b3261e;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, Menlo, monospace;
+  --shadow: 0 1px 2px rgba(15, 23, 32, 0.06), 0 6px 20px rgba(15, 23, 32, 0.06);
+}
+
+.sheet-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 12px 5px 8px;
+  box-shadow: var(--shadow);
+}
+.sheet-tab b {
+  color: #fff;
+  background: var(--accent);
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-weight: 700;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  padding: 3px 10px;
+  white-space: nowrap;
+}
+.pill::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.pill--live { color: var(--be); background: rgba(47, 122, 60, 0.1); }
+.pill--planned { color: var(--dev); background: rgba(184, 134, 11, 0.12); }
+.pill--open { color: var(--ink-soft); background: rgba(91, 102, 114, 0.1); }
+.pill--risk { color: var(--danger); background: rgba(179, 38, 30, 0.1); }
+
+/* ===================================================================== */
+/* Slide 01 — Title                                                       */
+/* ===================================================================== */
+#step-title {
+  position: relative;
+  width: 1000px;
+  box-sizing: border-box;
+  padding: 72px 88px;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+#step-title .tt-wordmark {
+  font-size: 68px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+}
+#step-title .tt-wordmark span { color: var(--accent); }
+#step-title .tt-sub {
+  font-size: 19px;
+  color: var(--ink-soft);
+  max-width: 34em;
+  line-height: 1.5;
+}
+#step-title .tt-agenda {
+  margin-top: 8px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+#step-title .tt-agenda-label {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 4px;
+}
+#step-title .tt-agenda ol {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+#step-title .tt-agenda li {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 16px;
+}
+#step-title .tt-agenda li b {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+  flex: none;
+  width: 2.4em;
+}
+#step-title .tt-foot {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+}
+
+/* ===================================================================== */
+/* Slide 02 — Technology Stack                                            */
+/* ===================================================================== */
+#step-techstack {
+  position: relative;
+  width: 1050px;
+  box-sizing: border-box;
+  padding: 56px 64px;
+  color: var(--ink);
+}
+#step-techstack .ts-head { margin-bottom: 34px; }
+#step-techstack .ts-head h1 { font-size: 34px; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 6px; }
+#step-techstack .ts-head p { color: var(--ink-soft); font-size: 15.5px; }
+#step-techstack .ts-row {
+  display: grid;
+  grid-template-columns: 1fr 46px 1fr 46px 1fr;
+  align-items: stretch;
+}
+#step-techstack .ts-card {
+  padding: 22px 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top-width: 4px;
+  border-top-style: solid;
+}
+#step-techstack .ts-fe { border-top-color: var(--fe); }
+#step-techstack .ts-be { border-top-color: var(--be); }
+#step-techstack .ts-db { border-top-color: var(--db); }
+#step-techstack .ts-tag {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+#step-techstack .ts-fe .ts-tag { color: var(--fe); }
+#step-techstack .ts-be .ts-tag { color: var(--be); }
+#step-techstack .ts-db .ts-tag { color: var(--db); }
+#step-techstack .ts-name { font-size: 21px; font-weight: 700; }
+#step-techstack .ts-details { list-style: none; display: flex; flex-direction: column; gap: 5px; margin-top: 4px; }
+#step-techstack .ts-details li {
+  font-size: 13px;
+  color: var(--ink-soft);
+  padding-left: 14px;
+  position: relative;
+}
+#step-techstack .ts-details li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--line);
+}
+#step-techstack .ts-alt {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+#step-techstack .ts-alt b { color: var(--dev); font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; }
+#step-techstack .ts-arrow {
+  align-self: center;
+  height: 2px;
+  background: var(--line);
+  position: relative;
+}
+#step-techstack .ts-arrow::after {
+  content: "";
+  position: absolute;
+  right: -1px;
+  top: -5px;
+  border: 6px solid transparent;
+  border-left: 8px solid var(--line);
+}
+#step-techstack .ts-arrow span {
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ===================================================================== */
+/* Slide 03 — Idea Lifecycle                                              */
+/* ===================================================================== */
+#step-lifecycle {
+  position: relative;
+  width: 1180px;
+  box-sizing: border-box;
+  padding: 52px 64px 44px;
+  color: var(--ink);
+}
+#step-lifecycle .lc-head { margin-bottom: 20px; }
+#step-lifecycle .lc-head h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 6px; }
+#step-lifecycle .lc-head p { color: var(--ink-soft); font-size: 15px; }
+
+#step-lifecycle .lc-timeline {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-top: 30px;
+  position: relative;
+}
+#step-lifecycle .lc-timeline::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 34px;
+  height: 2px;
+  background: var(--line);
+}
+#step-lifecycle .lc-node {
+  position: relative;
+  padding: 30px 12px 14px;
+  text-align: center;
+}
+#step-lifecycle .lc-dot {
+  position: absolute;
+  top: 26px;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 3px solid var(--accent);
+}
+#step-lifecycle .lc-node.lc-draft .lc-dot { border-color: var(--dev); }
+#step-lifecycle .lc-node.lc-rejected .lc-dot,
+#step-lifecycle .lc-node.lc-archived .lc-dot { border-color: var(--ink-soft); }
+#step-lifecycle .lc-node strong {
+  display: block;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+#step-lifecycle .lc-node small { font-size: 11.5px; color: var(--ink-soft); }
+#step-lifecycle .lc-node.lc-draft strong { color: var(--dev); }
+
+#step-lifecycle .lc-fork {
+  grid-column: 3;
+  margin-top: 6px;
+  padding: 12px;
+  text-align: center;
+  border-style: dashed;
+  border-color: rgba(179, 38, 30, 0.4);
+}
+#step-lifecycle .lc-fork strong {
+  display: block;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--danger);
+}
+#step-lifecycle .lc-fork small { font-size: 11px; color: var(--ink-soft); }
+
+#step-lifecycle .lc-annotations {
+  margin-top: 26px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+#step-lifecycle .lc-note {
+  padding: 14px 16px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+#step-lifecycle .lc-note .pill { margin-bottom: 8px; }
+#step-lifecycle .lc-note b { color: var(--ink); }
+
+/* ===================================================================== */
+/* Slide 04 — Deployment & Infrastructure                                 */
+/* ===================================================================== */
+#step-deployment {
+  position: relative;
+  width: 1080px;
+  box-sizing: border-box;
+  padding: 52px 64px;
+  color: var(--ink);
+}
+#step-deployment .dp-head { margin-bottom: 28px; }
+#step-deployment .dp-head h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 6px; }
+#step-deployment .dp-head p { color: var(--ink-soft); font-size: 15px; }
+#step-deployment .dp-head code {
+  font-family: var(--mono);
+  background: rgba(56, 70, 200, 0.08);
+  color: var(--accent);
+  border-radius: 5px;
+  padding: 1px 7px;
+}
+
+#step-deployment .dp-section { margin-bottom: 22px; }
+#step-deployment .dp-label {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 10px;
+}
+
+#step-deployment .dp-fork {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+#step-deployment .dp-fork .card {
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-left-width: 4px;
+  border-left-style: solid;
+}
+#step-deployment .dp-fork .dp-default { border-left-color: var(--be); }
+#step-deployment .dp-fork .dp-h2 { border-left-color: var(--dev); border-style: dashed; }
+#step-deployment .dp-fork b { display: block; font-size: 14px; }
+#step-deployment .dp-fork span { font-size: 12px; color: var(--ink-soft); }
+
+#step-deployment .dp-pipe {
+  display: grid;
+  grid-template-columns: 1fr 34px 1fr 34px 1fr;
+  align-items: center;
+}
+#step-deployment .dp-stage {
+  padding: 14px 16px;
+  font-size: 12.5px;
+}
+#step-deployment .dp-stage b { display: block; font-size: 14px; margin-bottom: 3px; }
+#step-deployment .dp-stage span { color: var(--ink-soft); }
+#step-deployment .dp-connector {
+  height: 2px;
+  background: var(--line);
+  position: relative;
+}
+#step-deployment .dp-connector.dashed { background: none; border-top: 2px dashed var(--line); }
+#step-deployment .dp-connector::after {
+  content: "";
+  position: absolute;
+  right: -1px;
+  top: -5px;
+  border: 6px solid transparent;
+  border-left: 8px solid var(--ink-soft);
+}
+
+#step-deployment .dp-envs { display: flex; gap: 12px; }
+#step-deployment .dp-envs .card { flex: 1; padding: 12px 14px; }
+#step-deployment .dp-envs b { font-size: 13px; display: block; }
+#step-deployment .dp-envs span { font-size: 11.5px; color: var(--ink-soft); }
+#step-deployment .dp-envs .ghost { border-style: dashed; background: transparent; box-shadow: none; }
+
+/* ===================================================================== */
+/* Slide 05 — Authentication                                             */
+/* ===================================================================== */
+#step-auth {
+  position: relative;
+  width: 1120px;
+  box-sizing: border-box;
+  padding: 52px 64px 44px;
+  color: var(--ink);
+}
+#step-auth .au-head { margin-bottom: 26px; }
+#step-auth .au-head h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 6px; }
+#step-auth .au-head p { color: var(--ink-soft); font-size: 15px; }
+
+#step-auth .au-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+#step-auth .au-col-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+#step-auth .au-mode {
+  padding: 13px 16px;
+  margin-bottom: 10px;
+  border-style: dashed;
+}
+#step-auth .au-mode code { font-family: var(--mono); font-size: 12.5px; color: var(--dev); }
+#step-auth .au-mode p { font-size: 12.5px; color: var(--ink-soft); margin-top: 6px; line-height: 1.45; }
+#step-auth .au-mode p code { color: var(--ink); background: rgba(27, 36, 48, 0.06); padding: 1px 5px; border-radius: 4px; }
+
+#step-auth .au-chain { display: flex; flex-direction: column; gap: 10px; }
+#step-auth .au-node {
+  padding: 11px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+#step-auth .au-node b { font-size: 13.5px; }
+#step-auth .au-node small { display: block; font-size: 11.5px; color: var(--ink-soft); font-weight: 400; }
+
+#step-auth .au-ledger {
+  margin-top: 26px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+}
+#step-auth .au-ledger .card { padding: 14px 16px; }
+#step-auth .au-ledger h2 {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+#step-auth .au-ledger ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+#step-auth .au-ledger li { font-size: 12px; color: var(--ink-soft); padding-left: 14px; position: relative; }
+#step-auth .au-ledger li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--line);
+}
+#step-auth .au-ledger li b { color: var(--ink); font-weight: 600; }
+#step-auth .au-ledger .au-risk { border-color: rgba(179, 38, 30, 0.35); }
+#step-auth .au-ledger .au-open { border-style: dotted; }
+
+#step-auth .au-note {
+  margin-top: 16px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--ink-soft);
+}
+
+/* ===================================================================== */
+/* Slide 06 — Architecture Overview                                       */
+/* ===================================================================== */
+#step-architecture {
+  position: relative;
+  width: 1100px;
+  box-sizing: border-box;
+  padding: 52px 64px;
+  color: var(--ink);
+}
+#step-architecture .ar-head { margin-bottom: 26px; }
+#step-architecture .ar-head h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 6px; }
+#step-architecture .ar-head p { color: var(--ink-soft); font-size: 15px; }
+
+#step-architecture .ar-repo {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+#step-architecture .ar-root {
+  padding: 16px;
+  text-align: center;
+}
+#step-architecture .ar-root b { font-family: var(--mono); font-size: 15px; display: block; }
+#step-architecture .ar-root span { font-size: 11px; color: var(--ink-soft); }
+#step-architecture .ar-apps { display: flex; gap: 14px; }
+#step-architecture .ar-apps .card { flex: 1; padding: 14px 16px; border-top-width: 4px; border-top-style: solid; }
+#step-architecture .ar-apps .ar-fe { border-top-color: var(--fe); }
+#step-architecture .ar-apps .ar-be { border-top-color: var(--be); }
+#step-architecture .ar-apps b { font-family: var(--mono); font-size: 14px; display: block; margin-bottom: 4px; }
+#step-architecture .ar-apps span { font-size: 12px; color: var(--ink-soft); }
+#step-architecture .ar-apps .ar-ci {
+  margin-top: 8px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--ink-soft);
+  border-top: 1px dashed var(--line);
+  padding-top: 6px;
+}
+
+#step-architecture .ar-bridge {
+  text-align: center;
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin-bottom: 24px;
+}
+#step-architecture .ar-bridge code {
+  font-family: var(--mono);
+  background: rgba(56, 70, 200, 0.08);
+  color: var(--accent);
+  padding: 2px 8px;
+  border-radius: 5px;
+}
+
+#step-architecture .ar-cutaway {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 26px;
+  align-items: start;
+}
+#step-architecture .ar-strata { display: flex; flex-direction: column; gap: 8px; }
+#step-architecture .ar-layer {
+  padding: 10px 14px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+#step-architecture .ar-layer b { font-family: var(--mono); font-size: 14px; }
+#step-architecture .ar-layer span { font-size: 12px; color: var(--ink-soft); margin-left: auto; }
+#step-architecture .ar-layer em {
+  font-style: normal;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--dev);
+  border-bottom: 1px dashed var(--dev);
+}
+#step-architecture .ar-mapper { padding: 16px; }
+#step-architecture .ar-mapper .pill { margin-bottom: 10px; }
+#step-architecture .ar-mapper p { font-size: 12px; color: var(--ink-soft); line-height: 1.5; }
+#step-architecture .ar-mapper p b { color: var(--ink); }

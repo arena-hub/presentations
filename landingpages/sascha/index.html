@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>ARENA Innovator — Technologie- &amp; Deployment-Überblick</title>
+  <style>
+    /* ============================================================
+       ARENA Innovator — impress.js Landingpage
+       Self-contained: keine externen CDN-/Font-Abhängigkeiten.
+       ============================================================ */
+
+    :root {
+      --bg-0: #0a0e17;
+      --bg-1: #111827;
+      --bg-2: #1b2436;
+      --ink: #e8edf6;
+      --ink-dim: #9aa7bd;
+      --ink-faint: #64708a;
+      --accent: #4f8cff;      /* Angular/Spring blue */
+      --accent-2: #14b8a6;    /* teal */
+      --accent-3: #f59e0b;    /* amber */
+      --accent-4: #a78bfa;    /* violet */
+      --danger: #f87171;
+      --ok: #34d399;
+      --line: rgba(255,255,255,.09);
+      --card: rgba(255,255,255,.035);
+      --card-brd: rgba(255,255,255,.10);
+      --mono: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", Consolas, monospace;
+      --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg-0);
+      color: var(--ink);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+      height: 100%;
+    }
+
+    /* Ambient background */
+    body {
+      background:
+        radial-gradient(1200px 800px at 15% -10%, rgba(79,140,255,.16), transparent 60%),
+        radial-gradient(1000px 700px at 110% 20%, rgba(20,184,166,.13), transparent 55%),
+        radial-gradient(900px 900px at 50% 120%, rgba(167,139,250,.12), transparent 60%),
+        var(--bg-0);
+    }
+
+    /* Fallback for browsers without impress.js support */
+    .fallback-message {
+      display: none;
+      font-family: var(--sans);
+      margin: 2em auto;
+      max-width: 44em;
+      padding: 1.2em 1.6em;
+      border-radius: 14px;
+      background: var(--bg-2);
+      border: 1px solid var(--card-brd);
+      color: var(--ink-dim);
+    }
+    .impress-not-supported .fallback-message { display: block; }
+    .impress-not-supported #impress { display: none; }
+
+    /* ---- Steps base ---- */
+    .step {
+      position: relative;
+      width: 1040px;
+      padding: 56px 64px;
+      box-sizing: border-box;
+      font-size: 20px;
+      line-height: 1.55;
+      opacity: .18;
+      transition: opacity .6s ease;
+    }
+    .step.active { opacity: 1; }
+
+    .impress-enabled .step {
+      background: linear-gradient(160deg, var(--bg-1), var(--bg-2));
+      border: 1px solid var(--card-brd);
+      border-radius: 22px;
+      box-shadow: 0 30px 80px -30px rgba(0,0,0,.75), inset 0 1px 0 rgba(255,255,255,.04);
+    }
+
+    .impress-enabled #impress { visibility: visible; }
+
+    /* Typography helpers */
+    h1, h2, h3 { margin: 0; font-weight: 700; letter-spacing: -.02em; line-height: 1.1; }
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: .22em;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+    p { margin: .5em 0; color: var(--ink-dim); }
+    strong { color: var(--ink); font-weight: 650; }
+    code {
+      font-family: var(--mono);
+      font-size: .86em;
+      background: rgba(255,255,255,.07);
+      border: 1px solid var(--line);
+      padding: 1px 7px;
+      border-radius: 6px;
+      color: #cfe0ff;
+    }
+    .muted { color: var(--ink-faint); }
+    .accent { color: var(--accent); }
+    .accent2 { color: var(--accent-2); }
+    .accent3 { color: var(--accent-3); }
+    .accent4 { color: var(--accent-4); }
+
+    /* ---- Title step ---- */
+    #title { text-align: center; width: 1120px; }
+    #title .logo {
+      font-family: var(--mono);
+      font-size: 15px;
+      letter-spacing: .35em;
+      color: var(--ink-faint);
+      margin-bottom: 26px;
+    }
+    #title h1 {
+      font-size: 76px;
+      background: linear-gradient(100deg, #fff 10%, var(--accent) 55%, var(--accent-2) 95%);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+    }
+    #title .tag { font-size: 24px; color: var(--ink-dim); margin-top: 20px; font-weight: 500; }
+    #title .pills { margin-top: 34px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    .pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 600;
+      padding: 8px 16px; border-radius: 999px;
+      background: var(--card); border: 1px solid var(--card-brd);
+      color: var(--ink);
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+
+    /* ---- Grids & cards ---- */
+    .grid { display: grid; gap: 16px; margin-top: 26px; }
+    .g2 { grid-template-columns: 1fr 1fr; }
+    .g3 { grid-template-columns: repeat(3, 1fr); }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-brd);
+      border-radius: 16px;
+      padding: 20px 22px;
+    }
+    .card h3 { font-size: 17px; margin-bottom: 8px; }
+    .card p { font-size: 15px; margin: 0; line-height: 1.5; }
+    .card .kv { font-size: 14px; color: var(--ink-dim); margin-top: 6px; }
+    .card .kv b { color: var(--ink); }
+
+    .lead { font-size: 22px; color: var(--ink-dim); max-width: 820px; }
+    .lead b { color: var(--ink); }
+
+    ul.clean { list-style: none; padding: 0; margin: 18px 0 0; }
+    ul.clean li { padding: 9px 0 9px 26px; position: relative; font-size: 17px; color: var(--ink-dim); border-bottom: 1px solid var(--line); }
+    ul.clean li:last-child { border-bottom: 0; }
+    ul.clean li::before { content: "▸"; position: absolute; left: 2px; color: var(--accent); }
+    ul.clean li b { color: var(--ink); }
+
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .chip {
+      font-family: var(--mono); font-size: 13px;
+      padding: 5px 11px; border-radius: 8px;
+      background: rgba(79,140,255,.10); border: 1px solid rgba(79,140,255,.28);
+      color: #bcd4ff;
+    }
+    .chip.teal { background: rgba(20,184,166,.10); border-color: rgba(20,184,166,.30); color: #9beadd; }
+    .chip.amber { background: rgba(245,158,11,.10); border-color: rgba(245,158,11,.30); color: #ffd98a; }
+    .chip.violet { background: rgba(167,139,250,.10); border-color: rgba(167,139,250,.30); color: #d6c9ff; }
+
+    /* ---- Lifecycle flow ---- */
+    .flow { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .state {
+      font-family: var(--mono); font-size: 14px; font-weight: 600;
+      padding: 8px 14px; border-radius: 10px;
+      background: var(--card); border: 1px solid var(--card-brd); color: var(--ink);
+      white-space: nowrap;
+    }
+    .state.draft { border-color: rgba(100,112,138,.6); color: var(--ink-faint); }
+    .state.pub { border-color: rgba(79,140,255,.5); color: #bcd4ff; }
+    .state.rev { border-color: rgba(245,158,11,.5); color: #ffd98a; }
+    .state.ok { border-color: rgba(52,211,153,.5); color: #a7f3d0; }
+    .state.no { border-color: rgba(248,113,113,.5); color: #fca5a5; }
+    .state.arch { border-color: rgba(167,139,250,.5); color: #d6c9ff; }
+    .arrow { color: var(--ink-faint); font-size: 18px; }
+
+    /* ---- Architecture diagram ---- */
+    .arch { display: flex; flex-direction: column; gap: 14px; margin-top: 24px; }
+    .layer {
+      display: flex; align-items: center; gap: 16px;
+      padding: 16px 20px; border-radius: 14px;
+      background: var(--card); border: 1px solid var(--card-brd);
+    }
+    .layer .ico {
+      flex: none; width: 44px; height: 44px; border-radius: 11px;
+      display: grid; place-items: center; font-size: 22px;
+      background: rgba(255,255,255,.05); border: 1px solid var(--line);
+    }
+    .layer .body { flex: 1; }
+    .layer .body h3 { font-size: 16px; }
+    .layer .body p { font-size: 14px; margin-top: 2px; }
+    .layer .meta { font-family: var(--mono); font-size: 12px; color: var(--ink-faint); text-align: right; }
+    .conn { text-align: center; color: var(--ink-faint); font-size: 16px; margin: -6px 0; }
+
+    /* ---- Hints / footer inside steps ---- */
+    .note {
+      margin-top: 22px; font-size: 14px; color: var(--ink-faint);
+      border-left: 2px solid var(--accent); padding-left: 14px;
+    }
+    .ref { font-family: var(--mono); font-size: 12px; color: var(--ink-faint); margin-top: 20px; }
+
+    /* ---- Progress / hint bar (fixed) ---- */
+    .hud {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 22px; font-size: 12px; color: var(--ink-faint);
+      font-family: var(--mono);
+      background: linear-gradient(to top, rgba(10,14,23,.85), transparent);
+      pointer-events: none;
+    }
+    .hud kbd {
+      font-family: var(--mono); background: rgba(255,255,255,.08);
+      border: 1px solid var(--line); border-bottom-width: 2px;
+      border-radius: 5px; padding: 1px 7px; color: var(--ink-dim);
+    }
+
+    .big-num { font-family: var(--mono); font-size: 15px; color: var(--accent); font-weight: 700; }
+  </style>
+</head>
+<body class="impress-not-supported">
+
+  <div class="fallback-message">
+    <p><b>Dein Browser unterstützt die für impress.js nötigen CSS3-3D-Transforms nicht.</b></p>
+    <p>Bitte nutze eine aktuelle Version von Chrome, Edge, Firefox oder Safari, um die Präsentation anzusehen.</p>
+  </div>
+
+  <div id="impress" data-transition-duration="900">
+
+    <!-- 1) TITLE -->
+    <div id="title" class="step slide" data-x="0" data-y="0" data-scale="3">
+      <div class="logo">ARENA · HUB</div>
+      <h1>ARENA Innovator</h1>
+      <div class="tag">Technologie-, Deployment- &amp; Architektur-Überblick</div>
+      <div class="pills">
+        <span class="pill"><span class="dot" style="background:var(--accent)"></span>Angular 21</span>
+        <span class="pill"><span class="dot" style="background:var(--ok)"></span>Spring Boot 4 · Java 25</span>
+        <span class="pill"><span class="dot" style="background:var(--accent-2)"></span>PostgreSQL</span>
+        <span class="pill"><span class="dot" style="background:var(--accent-4)"></span>ArgoCD · GitOps</span>
+      </div>
+      <div class="ref">Onboarding-Präsentation · impress.js</div>
+    </div>
+
+    <!-- 2) WAS IST ES -->
+    <div class="step" data-x="2900" data-y="0" data-scale="1">
+      <div class="eyebrow">Was ist der Innovator?</div>
+      <h2 style="font-size:40px">Ideen einreichen, bewerten,<br>zum Review bringen.</h2>
+      <p class="lead" style="margin-top:18px">Eine Plattform für <b>Innovationsmanagement</b>: Mitarbeitende reichen Ideen ein, die Community bewertet sie, Organisator:innen führen sie durch einen strukturierten <b>Review-Workflow</b>.</p>
+      <div class="grid g3">
+        <div class="card"><h3>💡 Ideen</h3><p>Erstellen, veröffentlichen, versionieren — inkl. voller Revisionshistorie (Hibernate Envers).</p></div>
+        <div class="card"><h3>👍 Voting</h3><p>Likes in aktiven Phasen (<code>PUBLISHED</code>, <code>REVIEW</code>, <code>APPROVED</code>, <code>PROGRESS</code>).</p></div>
+        <div class="card"><h3>✅ Review-Workflow</h3><p>Rollenbasierte Status-Übergänge, zentral abgesichert im <code>PermissionValidator</code>.</p></div>
+      </div>
+    </div>
+
+    <!-- 3) MONOREPO -->
+    <div class="step" data-x="5800" data-y="0" data-scale="1">
+      <div class="eyebrow">Repository-Struktur · #251</div>
+      <h2 style="font-size:38px">Ein Monorepo, zwei unabhängige Apps</h2>
+      <p class="lead" style="margin-top:14px">Zusammengeführt aus <code>innovator-frontend</code> und <code>innovator-backend</code>. Bewusst <b>kein</b> vereinheitlichendes Build-Tool — jede App behält Build, Dependencies und Versionierung.</p>
+      <div class="grid g2">
+        <div class="card">
+          <h3 class="accent">apps/frontend</h3>
+          <p>Angular · npm · eigener CLAUDE.md</p>
+          <div class="kv">Serve: <code>npm start</code> → <b>:4200</b></div>
+        </div>
+        <div class="card">
+          <h3 class="accent2">apps/backend</h3>
+          <p>Spring Boot · Maven · eigener CLAUDE.md</p>
+          <div class="kv">Run: <code>./mvnw spring-boot:run</code> → <b>:8080</b></div>
+        </div>
+      </div>
+      <div class="note">Komfort-Wrapper im Root: <code>./run &lt;start|test|lint|build&gt; &lt;frontend|backend&gt;</code> — ohne <code>cd</code> in <code>apps/</code>.</div>
+    </div>
+
+    <!-- 4) FRONTEND -->
+    <div class="step" data-x="8700" data-y="0" data-scale="1">
+      <div class="eyebrow">Frontend</div>
+      <h2 style="font-size:38px">Angular <span class="accent">21</span> · Standalone</h2>
+      <ul class="clean">
+        <li><b>Standalone-Components</b> — keine NgModules, Bootstrap über <code>app.config.ts</code></li>
+        <li><b>Funktionale HTTP-Interceptors</b> (<code>withInterceptors</code>), keine Klassen</li>
+        <li><b>Runtime-Config statt environment.ts</b> — <code>assets/config.json</code> wird beim Bootstrap geladen (<code>backendApiUrl</code>, <code>authType</code>)</li>
+        <li><b>Typisierte Routes</b> mit <code>roleGuard</code> &amp; Resolvern (<code>ideaResolver</code>)</li>
+        <li><b>i18n</b> via <code>$localize</code>, Default Englisch, DE manuell gepflegt</li>
+      </ul>
+      <div class="tag-row">
+        <span class="chip">Vitest</span><span class="chip">Cypress (E2E)</span>
+        <span class="chip">ESLint · simple-import-sort</span><span class="chip">Prettier</span>
+        <span class="chip">Node 24.15.x</span>
+      </div>
+    </div>
+
+    <!-- 5) BACKEND -->
+    <div class="step" data-x="11600" data-y="0" data-scale="1">
+      <div class="eyebrow">Backend</div>
+      <h2 style="font-size:38px">Spring Boot <span class="accent2">4</span> · Java <span class="accent2">25</span></h2>
+      <p class="lead" style="margin-top:12px">Package-Root <code>de.fincon.reply.arenainnovator</code> — klare Schichtung:</p>
+      <div class="flow" style="margin-top:16px">
+        <span class="state pub">controller</span><span class="arrow">→</span>
+        <span class="state pub">services</span><span class="arrow">→</span>
+        <span class="state pub">repositorys</span><span class="arrow">→</span>
+        <span class="state ok">JPA entities</span>
+      </div>
+      <ul class="clean">
+        <li><b>MapStruct-Mapper</b> DTO ↔ Entity — flache DTOs, Relationen nur via IDs; Service lädt echte Entities</li>
+        <li><b>Hibernate Envers</b> für Revisionshistorie der Ideen (<code>AuditReader</code>)</li>
+        <li><b>Zentrale Fehlerbehandlung</b> im <code>GlobalExceptionHandler</code> (<code>@RestControllerAdvice</code>)</li>
+        <li><b>ArchiveJob</b> täglich 00:00 UTC — überfällige Ideen mit Retry/Backoff archivieren</li>
+      </ul>
+      <div class="tag-row">
+        <span class="chip teal">Checkstyle</span><span class="chip teal">Swagger UI /swagger-ui</span><span class="chip teal">H2 (local) · Postgres (dev/demo)</span>
+      </div>
+    </div>
+
+    <!-- 6) IDEA LIFECYCLE -->
+    <div class="step" data-x="11600" data-y="2600" data-scale="1.3">
+      <div class="eyebrow">Domänen-Kern · Idea-Lifecycle</div>
+      <h2 style="font-size:34px">Status treibt die Autorisierung</h2>
+      <div class="flow">
+        <span class="state draft">DRAFT</span><span class="arrow">→</span>
+        <span class="state pub">PUBLISHED</span><span class="arrow">→</span>
+        <span class="state rev">REVIEW</span><span class="arrow">→</span>
+        <span class="state ok">APPROVED</span>
+        <span class="arrow">/</span>
+        <span class="state no">REJECTED</span>
+      </div>
+      <div class="flow" style="margin-top:12px">
+        <span class="arrow">…APPROVED →</span>
+        <span class="state pub">PROGRESS</span><span class="arrow">→</span>
+        <span class="state arch">ARCHIVED</span>
+      </div>
+      <ul class="clean">
+        <li><b>Übergänge</b> per Ownership oder Rolle <code>ORGANISATOR</code> — aber nicht die <em>eigenen</em> Ideen (<code>requireOrganisatorNotOwner</code>)</li>
+        <li><b>DRAFT</b> nur für Owner sichtbar — inkl. historischer Revisionen</li>
+        <li>Rollen: <code>EMPLOYEE</code> · <code>ORGANISATOR</code> · <code>ADMIN</code></li>
+      </ul>
+      <div class="ref">security/PermissionValidator · security/UserSession</div>
+    </div>
+
+    <!-- 7) AUTH -->
+    <div class="step" data-x="8700" data-y="2600" data-scale="1">
+      <div class="eyebrow">Authentifizierung · #255 / #256</div>
+      <h2 style="font-size:36px">Keycloak + OAuth2-Proxy</h2>
+      <div class="arch">
+        <div class="layer">
+          <div class="ico">🌐</div>
+          <div class="body"><h3>GitHub als Identity Provider</h3><p>Login-Flow föderiert über GitHub</p></div>
+          <div class="meta">OAuth2</div>
+        </div>
+        <div class="conn">↓</div>
+        <div class="layer">
+          <div class="ico">🔑</div>
+          <div class="body"><h3>Keycloak Realm <code>hub</code></h3><p>auth.swan.arena-schulungswerkstatt.de</p></div>
+          <div class="meta">OIDC Issuer</div>
+        </div>
+        <div class="conn">↓</div>
+        <div class="layer">
+          <div class="ico">🛡️</div>
+          <div class="body"><h3>oauth2-proxy (Sidecar)</h3><p>OIDC-Provider, reicht <code>Authorization</code>-Header an die App durch</p></div>
+          <div class="meta">quay.io · v7.15.2</div>
+        </div>
+      </div>
+      <div class="note"><b>Wichtig:</b> Backend-<code>security.mode</code> und Frontend-<code>authType</code> wählen dasselbe Verhalten — müssen konsistent sein, sonst bricht Auth <em>stumm</em>.</div>
+    </div>
+
+    <!-- 8) CI/CD -->
+    <div class="step" data-x="5800" data-y="2600" data-scale="1">
+      <div class="eyebrow">CI/CD · GitHub Actions</div>
+      <h2 style="font-size:36px">Pfad-gefilterte Pipelines</h2>
+      <p class="lead" style="margin-top:12px">Getrennt pro App — eine Änderung triggert nur die relevante Pipeline, kein kombinierter Workflow mit Job-Skipping.</p>
+      <div class="grid g2">
+        <div class="card">
+          <h3 class="accent">Frontend</h3>
+          <p><code>frontend-test.yml</code> · <code>frontend-pipeline.yml</code></p>
+          <div class="kv">Filter: <code>apps/frontend/**</code></div>
+        </div>
+        <div class="card">
+          <h3 class="accent2">Backend</h3>
+          <p><code>backend-test.yml</code> · <code>backend-pipeline.yml</code></p>
+          <div class="kv">Filter: <code>apps/backend/**</code></div>
+        </div>
+      </div>
+      <div class="note">Build &amp; Push nach <code>ghcr.io/arena-hub/innovator-{frontend,backend}</code> — Image-Tag = Commit-SHA, referenziert in der GitOps-Config.</div>
+    </div>
+
+    <!-- 9) DEPLOYMENT / GITOPS -->
+    <div class="step" data-x="2900" data-y="2600" data-scale="1.2">
+      <div class="eyebrow">Deployment · GitOps</div>
+      <h2 style="font-size:36px">ArgoCD zieht aus <code>hub-gitops-config</code></h2>
+      <div class="grid g3">
+        <div class="card"><h3 class="accent4">ArgoCD</h3><p>App-of-Apps, <code>automated</code> sync: <b>prune</b> + <b>selfHeal</b> aus <code>main</code>.</p></div>
+        <div class="card"><h3 class="accent">Helm</h3><p>Pro App ein Chart: Deployment, Service, NetworkPolicy, Ingress.</p></div>
+        <div class="card"><h3 class="accent3">Sealed Secrets</h3><p>Verschlüsselte Secrets im Repo (Postgres, oauth2-proxy, argocd).</p></div>
+      </div>
+      <ul class="clean">
+        <li><b>Namespace</b> <code>arena-hub</code> · Registry-Pull über <code>ghcr-creds</code></li>
+        <li><b>Backend</b> 2 Replicas · Profile <code>no-auth,demo</code> · Context-Path <code>/api</code></li>
+        <li><b>Platform vs. Application</b> getrennt (eigene ArgoCD-Projects &amp; root-apps)</li>
+      </ul>
+      <div class="ref">application/apps/* · platform/apps/* · environments/production</div>
+    </div>
+
+    <!-- 10) INGRESS / REQUEST FLOW -->
+    <div class="step" data-x="0" data-y="2600" data-scale="1">
+      <div class="eyebrow">Ingress &amp; Request-Flow</div>
+      <h2 style="font-size:34px">Ein Host, ein Gateway</h2>
+      <div class="arch">
+        <div class="layer">
+          <div class="ico">🔒</div>
+          <div class="body"><h3>nginx Ingress · <code>hub.swan.arena-schulungswerkstatt.de</code></h3><p>TLS via cert-manager (Let's Encrypt) · CORS · Rate-Limiting</p></div>
+          <div class="meta">hub-tls</div>
+        </div>
+        <div class="conn">┌────────────┴────────────┐</div>
+        <div class="grid g2" style="margin-top:0">
+          <div class="layer">
+            <div class="ico">🅰️</div>
+            <div class="body"><h3><code>/</code> → innovator-frontend</h3><p>Angular · Port 9002</p></div>
+          </div>
+          <div class="layer">
+            <div class="ico">☕</div>
+            <div class="body"><h3><code>/api</code> → innovator-backend</h3><p>Spring Boot · Port 80→8080</p></div>
+          </div>
+        </div>
+        <div class="conn">↓</div>
+        <div class="layer">
+          <div class="ico">🐘</div>
+          <div class="body"><h3>PostgreSQL · <code>postgresql-rw:5432</code></h3><p>DB <code>arenainnovator</code> · Platform-managed</p></div>
+          <div class="meta">CloudNativePG</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11) LOCAL DEV -->
+    <div class="step" data-x="-2900" data-y="1300" data-scale="1.1">
+      <div class="eyebrow">Lokale Entwicklung</div>
+      <h2 style="font-size:36px">In Minuten startklar</h2>
+      <div class="grid g2">
+        <div class="card">
+          <h3 class="accent2">Backend</h3>
+          <p><code>cd apps/backend/dev</code></p>
+          <p><code>docker compose up -d</code> <span class="muted">— Postgres :9000</span></p>
+          <p><code>./mvnw spring-boot:run -Dspring-boot.run.profiles=dev</code></p>
+        </div>
+        <div class="card">
+          <h3 class="accent">Frontend</h3>
+          <p><code>cd apps/frontend</code></p>
+          <p><code>npm install</code></p>
+          <p><code>npm start</code> <span class="muted">— :4200</span></p>
+        </div>
+      </div>
+      <ul class="clean">
+        <li>Ohne Profil: <b>H2</b>-File-DB (<code>./data/testdb</code>) — keine externen Services nötig</li>
+        <li>Voraussetzungen: <b>Java 25</b>, <b>Node 24.15.x</b> (<code>.nvmrc</code>), <b>Docker/Podman</b></li>
+      </ul>
+    </div>
+
+    <!-- 12) STACK OVERVIEW -->
+    <div class="step" data-x="2900" data-y="-2600" data-scale="1.2">
+      <div class="eyebrow">Auf einen Blick</div>
+      <h2 style="font-size:38px">Der komplette Stack</h2>
+      <div class="grid g2">
+        <div class="card">
+          <h3 class="accent">Frontend</h3>
+          <div class="tag-row"><span class="chip">Angular 21</span><span class="chip">TypeScript</span><span class="chip">Vitest</span><span class="chip">Cypress</span></div>
+        </div>
+        <div class="card">
+          <h3 class="accent2">Backend</h3>
+          <div class="tag-row"><span class="chip teal">Java 25</span><span class="chip teal">Spring Boot 4</span><span class="chip teal">MapStruct</span><span class="chip teal">Envers</span></div>
+        </div>
+        <div class="card">
+          <h3 class="accent3">Daten &amp; Auth</h3>
+          <div class="tag-row"><span class="chip amber">PostgreSQL</span><span class="chip amber">Keycloak</span><span class="chip amber">oauth2-proxy</span><span class="chip amber">GitHub IdP</span></div>
+        </div>
+        <div class="card">
+          <h3 class="accent4">Platform</h3>
+          <div class="tag-row"><span class="chip violet">Kubernetes</span><span class="chip violet">ArgoCD</span><span class="chip violet">Helm</span><span class="chip violet">nginx Ingress</span><span class="chip violet">Sealed Secrets</span></div>
+        </div>
+      </div>
+      <div class="ref">Quellen: README.md · CLAUDE.md · MIGRATION.md · hub-gitops-config</div>
+    </div>
+
+    <!-- 13) OUTRO -->
+    <div class="step" data-x="5800" data-y="-2600" data-z="-1500" data-scale="2" style="text-align:center; width:1120px">
+      <div class="logo" style="font-family:var(--mono); font-size:14px; letter-spacing:.35em; color:var(--ink-faint); margin-bottom:20px">ARENA · HUB</div>
+      <h2 style="font-size:52px; background:linear-gradient(100deg,#fff,var(--accent-2)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent">Willkommen im Team.</h2>
+      <p class="lead" style="margin:18px auto 0">Frag jederzeit — die Doku lebt in <code>README.md</code>, den <code>CLAUDE.md</code>-Dateien und <code>hub-gitops-config</code>.</p>
+      <div class="pills" style="margin-top:30px; justify-content:center">
+        <span class="pill">↔ / Leertaste · weiter</span>
+        <span class="pill">Esc · Überblick</span>
+        <span class="pill">Tab · Steps</span>
+      </div>
+    </div>
+
+    <!-- Overview step: Esc zoom-out -->
+    <div id="overview" class="step" data-x="4400" data-y="0" data-scale="13"></div>
+
+  </div>
+
+  <div class="hud">
+    <span>ARENA Innovator · Onboarding-Deck</span>
+    <span>Navigation: <kbd>→</kbd> <kbd>Leertaste</kbd> weiter · <kbd>←</kbd> zurück · <kbd>Esc</kbd> Übersicht</span>
+  </div>
+
+  <script src="vendor/impress.js"></script>
+  <script>
+    // Init impress.js — reiner Client-Betrieb, keine Netzwerkaufrufe.
+    var api = impress();
+    api.init();
+  </script>
+</body>
+</html>
