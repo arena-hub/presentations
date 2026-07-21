@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ARENA Innovator — Overview</title>
+  <meta name="viewport" content="width=1024">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body class="impress-not-supported">
+
+  <div class="fallback-message">
+    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented
+      with a simplified version of this presentation.</p>
+    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b>.</p>
+  </div>
+
+  <div id="impress" data-transition-duration="700">
+
+    <div class="step slide" id="step-title" data-x="0" data-y="0">
+      <div class="tt-wordmark">ARENA <span>Innovator</span></div>
+      <p class="tt-sub">Internal idea-management platform — employees submit improvement ideas, the
+        team votes and reviews them, and approved ideas become projects.</p>
+      <div class="card tt-agenda">
+        <div class="tt-agenda-label">In this overview</div>
+        <ol>
+          <li><b>02</b> Technology stack</li>
+          <li><b>03</b> Idea lifecycle</li>
+          <li><b>04</b> Deployment &amp; infrastructure</li>
+          <li><b>05</b> Authentication</li>
+          <li><b>06</b> Architecture overview</li>
+        </ol>
+      </div>
+      <div class="tt-foot">
+        <span>arena-hub/arena-hub#263</span>
+        <span>Candidate — Djacob</span>
+      </div>
+    </div>
+
+    <div class="step slide" id="step-techstack" data-x="1200" data-y="0">
+      <span class="sheet-tab"><b>02</b> Technology Stack</span>
+      <div class="ts-head" style="margin-top: 24px;">
+        <h1>One request, three layers</h1>
+        <p>Frontend calls the backend API, which persists to a database — a conventional shape, kept
+          conventional on purpose.</p>
+      </div>
+      <div class="ts-row">
+        <div class="card ts-card ts-fe">
+          <span class="ts-tag">Frontend</span>
+          <span class="ts-name">Angular</span>
+          <ul class="ts-details">
+            <li>Standalone components — no NgModules</li>
+            <li>Functional HTTP interceptors &amp; guards</li>
+            <li>Feature-based folder structure</li>
+          </ul>
+        </div>
+        <div class="ts-arrow"><span>HTTP · JSON</span></div>
+        <div class="card ts-card ts-be">
+          <span class="ts-tag">Backend</span>
+          <span class="ts-name">Spring Boot 4</span>
+          <ul class="ts-details">
+            <li>Java 25, built with Maven</li>
+            <li>controller → services → repositorys → entities</li>
+            <li>MapStruct maps entities to flat, ID-only DTOs</li>
+          </ul>
+        </div>
+        <div class="ts-arrow"><span>JDBC</span></div>
+        <div class="card ts-card ts-db">
+          <span class="ts-tag">Database</span>
+          <span class="ts-name">PostgreSQL</span>
+          <ul class="ts-details">
+            <li>Every deployed environment</li>
+            <li>Seeded demo data in dev</li>
+          </ul>
+          <div class="ts-alt"><b>Local dev alt</b><br>File-based H2 via <code>./run up -h2</code> — zero
+            docker, but starts empty (no seed data wired up yet).</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step slide" id="step-lifecycle" data-x="2400" data-y="0">
+      <span class="sheet-tab"><b>03</b> Domain Model</span>
+      <div class="lc-head" style="margin-top: 24px;">
+        <h1>Every idea is a state machine</h1>
+        <p>Six states, five transitions — verified directly in <code>PermissionValidator</code>, not
+          assumed from the feature list.</p>
+      </div>
+
+      <div class="lc-timeline">
+        <div class="lc-node lc-draft">
+          <span class="lc-dot"></span>
+          <strong>Draft</strong>
+          <small>owner's eyes only</small>
+        </div>
+        <div class="lc-node">
+          <span class="lc-dot"></span>
+          <strong>Published</strong>
+          <small>visible to all</small>
+        </div>
+        <div class="lc-node">
+          <span class="lc-dot"></span>
+          <strong>Review</strong>
+          <small>verdict pending</small>
+        </div>
+        <div class="lc-node">
+          <span class="lc-dot"></span>
+          <strong>Approved</strong>
+          <small>green-lit</small>
+        </div>
+        <div class="lc-node">
+          <span class="lc-dot"></span>
+          <strong>Progress</strong>
+          <small>in build</small>
+        </div>
+        <div class="lc-node lc-archived">
+          <span class="lc-dot"></span>
+          <strong>Archived</strong>
+          <small>aged out, nightly job</small>
+        </div>
+
+        <div class="card lc-fork lc-rejected">
+          <strong>Rejected</strong>
+          <small>the other verdict from Review — never both</small>
+        </div>
+      </div>
+
+      <div class="lc-annotations">
+        <div class="card lc-note">
+          <span class="pill pill--risk">owner-only</span>
+          <p>A <b>Draft</b> is invisible to everyone but its owner — including every historical revision.
+            <b>No role bypasses this, not even Admin</b> — verified in <code>PermissionValidator</code>,
+            zero exceptions in the code.</p>
+        </div>
+        <div class="card lc-note">
+          <span class="pill pill--live">votable window</span>
+          <p>Liking only works on <b>Published, Review, Approved, Progress</b>. Once Rejected or Archived,
+            an idea stays exactly as visible as before — it just stops accepting votes.</p>
+        </div>
+        <div class="card lc-note">
+          <span class="pill pill--planned">automatic</span>
+          <p>Nobody clicks "archive." A nightly job at <b>00:00 UTC</b> retires overdue Progress ideas,
+            paged 500 at a time, retried up to 5× with backoff.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step slide" id="step-deployment" data-x="0" data-y="1200">
+      <span class="sheet-tab"><b>04</b> Infrastructure</span>
+      <div class="dp-head" style="margin-top: 24px;">
+        <h1>From <code>./run</code> to a self-correcting cluster</h1>
+        <p>Local dev has two paths; everything shipped is declarative, GitOps-managed.</p>
+      </div>
+
+      <div class="dp-section">
+        <div class="dp-label">Develop</div>
+        <div class="dp-fork">
+          <div class="card dp-default">
+            <div>
+              <b>Docker/Podman Postgres</b>
+              <span>Default — seeded demo data, schema validated against a committed schema file</span>
+            </div>
+          </div>
+          <div class="card dp-h2">
+            <div>
+              <b>Local file H2</b>
+              <span>Opt-in via <code>-h2</code> — zero infrastructure, but starts empty</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dp-section">
+        <div class="dp-label">Ship</div>
+        <div class="dp-pipe">
+          <div class="card dp-stage">
+            <b>Multi-stage image</b>
+            <span>Maven build stage compiles the jar, discarded; a slim Temurin JRE stage runs it as a
+              non-root user.</span>
+          </div>
+          <div class="dp-connector"></div>
+          <div class="card dp-stage">
+            <b>hub-gitops-config</b>
+            <span>Separate repo of Helm charts, one per app — a merge here <em>is</em> the deploy.</span>
+          </div>
+          <div class="dp-connector dashed"></div>
+          <div class="card dp-stage">
+            <b>ArgoCD</b>
+            <span>Auto-sync, self-heal (drift reverted), prune (deletions removed) — cluster state
+              mirrors repo state.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="dp-section">
+        <div class="dp-label">Environments</div>
+        <div class="dp-envs">
+          <div class="card">
+            <b>Public demo</b>
+            <span>Own Postgres, schema managed outside the app's migrations</span>
+          </div>
+          <div class="card ghost">
+            <b>…every other environment</b>
+            <span>Same chart, own values file + ArgoCD Application</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step slide" id="step-auth" data-x="1200" data-y="1200">
+      <span class="sheet-tab"><b>05</b> Security · Identity</span>
+      <div class="au-head" style="margin-top: 24px;">
+        <h1>Pragmatic today, federated next</h1>
+        <p>Verified against the actual backend and frontend auth code, not the issue's assumptions.</p>
+      </div>
+
+      <div class="au-columns">
+        <div>
+          <div class="au-col-label"><span class="pill pill--planned">today</span> Two simple modes</div>
+          <div class="card au-mode">
+            <code>security.mode = default</code>
+            <p>Permits every request at the security layer — real authentication is assumed to happen
+              <code>upstream</code> of the app.</p>
+          </div>
+          <div class="card au-mode">
+            <code>security.mode = no-auth</code>
+            <p>HTTP Basic where every seeded user's password is literally <code>"no-auth"</code> — a
+              convenience for local dev and the public demo, not a real scheme.</p>
+          </div>
+        </div>
+        <div>
+          <div class="au-col-label"><span class="pill pill--open">target</span> Federated login</div>
+          <div class="au-chain">
+            <div class="card au-node">
+              <div><b>GitHub identity</b><small>the account everyone already has</small></div>
+              <span class="pill pill--open">external</span>
+            </div>
+            <div class="card au-node">
+              <div><b>Keycloak realm</b><small>GitHub as the sole login method</small></div>
+              <span class="pill pill--live">configured</span>
+            </div>
+            <div class="card au-node">
+              <div><b>OAuth2 Proxy</b><small>wired into the Helm chart as an init container</small></div>
+              <span class="pill pill--live">wired, not on yet</span>
+            </div>
+            <div class="card au-node">
+              <div><b>ARENA app</b><small>OAuth2-aware backend + real login flow</small></div>
+              <span class="pill pill--planned">in flight</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="au-ledger">
+        <div class="card">
+          <h2>Already in place</h2>
+          <ul>
+            <li>Keycloak + OAuth2 Proxy in the Helm chart</li>
+            <li>GitHub configured as IdP in the Keycloak realm</li>
+          </ul>
+        </div>
+        <div class="card au-risk">
+          <h2>Being built</h2>
+          <ul>
+            <li>Backend Spring Security OAuth2 config</li>
+            <li>Frontend login/redirect flow</li>
+            <li><b>New-user provisioning on first login</b> — no code does this today; first GitHub
+              login would 401 as-is</li>
+            <li>Keep name/role in sync on every login, not just signup</li>
+            <li>Logout kept in sync with Keycloak</li>
+          </ul>
+        </div>
+        <div class="card au-open">
+          <h2>Open question</h2>
+          <ul>
+            <li><b>Where should roles live?</b> Keep Employee/Organisator/Admin as the backend's own
+              model, or move authorization into Keycloak-issued claims? Genuinely undecided.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="au-note">Deliberately sequenced — plumbing stays off until the app-side work lands.</p>
+    </div>
+
+    <div class="step slide" id="step-architecture" data-x="2400" data-y="1200">
+      <span class="sheet-tab"><b>06</b> Architecture</span>
+      <div class="ar-head" style="margin-top: 24px;">
+        <h1>One repo, two independent apps</h1>
+        <p>Merged from two previously separate repositories — kept deliberately independent, not
+          unified.</p>
+      </div>
+
+      <div class="ar-repo">
+        <div class="card ar-root">
+          <b>innovator/</b>
+          <span>two repos, merged — still two apps</span>
+        </div>
+        <div class="ar-apps">
+          <div class="card ar-fe">
+            <b>apps/frontend</b>
+            <span>Standalone Angular, no NgModules, feature-based structure</span>
+            <div class="ar-ci">frontend-*.yml · paths: apps/frontend/**</div>
+          </div>
+          <div class="card ar-be">
+            <b>apps/backend</b>
+            <span>Spring Boot API, own dependencies &amp; versioning</span>
+            <div class="ar-ci">backend-*.yml · paths: apps/backend/**</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ar-bridge">
+        <code>./run &lt;action&gt; &lt;app&gt;</code> — a dispatcher, not a build system. No unifying
+        toolchain on top, by design.
+      </div>
+
+      <div class="ar-cutaway">
+        <div class="ar-strata">
+          <div class="card ar-layer"><b>controller</b><span>HTTP edge, speaks DTOs only</span></div>
+          <div class="card ar-layer"><b>services</b><span>business rules</span></div>
+          <div class="card ar-layer"><b>repositorys</b><em>sic, deliberate</em><span>Spring Data JPA</span></div>
+          <div class="card ar-layer"><b>entities</b><span>JPA object graph, nested relations</span></div>
+        </div>
+        <div class="card ar-mapper">
+          <span class="pill pill--planned">MapStruct</span>
+          <p>Maps entities to flat DTOs — relationships cross the API as <b>IDs only</b>, never nested
+            objects. The contract stays simple.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="vendor/impress.js"></script>
+  <script>impress().init();</script>
+</body>
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>ARENA Innovator — Overview</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="impress-not-supported">
+
+<div id="lang-toggle" aria-label="Language">
+  <button type="button" data-lang-btn="en">EN</button>
+  <button type="button" data-lang-btn="de">DE</button>
+</div>
+
+<div class="fallback-message">
+  <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented
+  with a simplified version of this presentation.</p>
+  <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b>.</p>
+</div>
+
+<div id="impress"
+     data-transition-duration="1000"
+     data-width="1024"
+     data-height="768">
+
+  <!-- 1. Title -->
+  <div id="title" class="step slide" data-x="0" data-y="0" data-scale="1">
+    <div class="i18n-en">
+      <span class="eyebrow">Ticket #263</span>
+      <h1>ARENA Innovator</h1>
+      <p class="subtitle">A guided tour of the tech stack, architecture, and deployment behind the
+        project — built for onboarding new teammates and stakeholders.</p>
+      <p class="hint">Use → / space / click to move on</p>
+    </div>
+    <div class="i18n-de">
+      <span class="eyebrow">Ticket #263</span>
+      <h1>ARENA Innovator</h1>
+      <p class="subtitle">Ein geführter Rundgang durch Technologie-Stack, Architektur und
+        Deployment des Projekts — zum Onboarding neuer Teammitglieder und Stakeholder.</p>
+      <p class="hint">Weiter mit → / Leertaste / Klick</p>
+    </div>
+  </div>
+
+  <!-- 2. Tech stack -->
+  <div id="stack" class="step slide" data-x="1100" data-y="0" data-scale="1">
+    <div class="i18n-en">
+      <span class="eyebrow">Tech Stack</span>
+      <h2>Two independent apps, one repo</h2>
+    </div>
+    <div class="i18n-de">
+      <span class="eyebrow">Technologie-Stack</span>
+      <h2>Zwei unabhängige Apps, ein Repo</h2>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <h3>Frontend</h3>
+        <p class="i18n-en">Angular 21 — standalone components, signals, Angular Material.</p>
+        <p class="i18n-de">Angular 21 — Standalone Components, Signals, Angular Material.</p>
+      </div>
+      <div class="card">
+        <h3>Backend</h3>
+        <p class="i18n-en">Spring Boot 4 on Java 25.</p>
+        <p class="i18n-de">Spring Boot 4 auf Java 25.</p>
+      </div>
+      <div class="card">
+        <h3 class="i18n-en">Database</h3>
+        <h3 class="i18n-de">Datenbank</h3>
+        <p class="i18n-en">PostgreSQL (H2 for zero-dependency local runs).</p>
+        <p class="i18n-de">PostgreSQL (H2 für lokale Läufe ganz ohne Abhängigkeiten).</p>
+      </div>
+      <div class="card">
+        <h3>i18n</h3>
+        <p class="i18n-en">English + German, both real buildable locales — switchable live from
+          the toolbar.</p>
+        <p class="i18n-de">Englisch + Deutsch, beide echte, buildbare Locales — live über die
+          Toolbar umschaltbar.</p>
+      </div>
+    </div>
+    <p class="note i18n-en">No unifying build tool by design — Maven and npm stay independent
+      (see <code>MIGRATION.md</code>).</p>
+    <p class="note i18n-de">Bewusst kein einheitliches Build-Tool — Maven und npm bleiben
+      unabhängig (siehe <code>MIGRATION.md</code>).</p>
+  </div>
+
+  <!-- 3. Architecture -->
+  <div id="architecture" class="step slide" data-x="2200" data-y="0" data-scale="1">
+    <div class="i18n-en">
+      <span class="eyebrow">Architecture</span>
+      <h2>Monorepo, layered cleanly</h2>
+    </div>
+    <div class="i18n-de">
+      <span class="eyebrow">Architektur</span>
+      <h2>Monorepo, sauber geschichtet</h2>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <h3 class="i18n-en">Repo layout</h3>
+        <h3 class="i18n-de">Repo-Struktur</h3>
+        <p class="i18n-en"><code>apps/backend</code> + <code>apps/frontend</code>, consolidated
+          from two separate repos (history kept in the originals — see
+          <code>MIGRATION.md</code>).</p>
+        <p class="i18n-de"><code>apps/backend</code> + <code>apps/frontend</code>, zusammengeführt
+          aus zwei getrennten Repos (Historie bleibt in den Originalen erhalten — siehe
+          <code>MIGRATION.md</code>).</p>
+      </div>
+      <div class="card">
+        <h3 class="i18n-en">Backend layers</h3>
+        <h3 class="i18n-de">Backend-Schichten</h3>
+        <p class="i18n-en"><code>controller → services → repositorys → entities</code>, with
+          MapStruct DTOs that carry relations only as IDs.</p>
+        <p class="i18n-de"><code>controller → services → repositorys → entities</code>, mit
+          MapStruct-DTOs, die Relationen nur als IDs führen.</p>
+      </div>
+      <div class="card">
+        <h3 class="i18n-en">Frontend layers</h3>
+        <h3 class="i18n-de">Frontend-Schichten</h3>
+        <p class="i18n-en"><code>features/*</code>, <code>core/*</code>, <code>shared/*</code> —
+          feature-based, no NgModules.</p>
+        <p class="i18n-de"><code>features/*</code>, <code>core/*</code>, <code>shared/*</code> —
+          feature-basiert, keine NgModules.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Deployment & environments -->
+  <div id="deployment" class="step slide" data-x="1100" data-y="900" data-scale="1">
+    <div class="i18n-en">
+      <span class="eyebrow">Deployment &amp; Environments</span>
+      <h2>From laptop to production</h2>
+    </div>
+    <div class="i18n-de">
+      <span class="eyebrow">Deployment &amp; Umgebungen</span>
+      <h2>Vom Laptop bis in die Produktion</h2>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <h3 class="i18n-en">Local dev</h3>
+        <h3 class="i18n-de">Lokale Entwicklung</h3>
+        <p class="i18n-en">Docker/Podman for the dev Postgres container; a plain H2 file DB needs
+          nothing at all to boot.</p>
+        <p class="i18n-de">Docker/Podman für den dev-Postgres-Container; eine reine
+          H2-Datei-Datenbank braucht zum Starten überhaupt nichts.</p>
+      </div>
+      <div class="card">
+        <h3 class="i18n-en">Environments</h3>
+        <h3 class="i18n-de">Umgebungen</h3>
+        <p class="i18n-en"><code>dev</code> (Postgres, schema validated) and <code>demo</code>
+          (Postgres, schema pre-existing) backend profiles.</p>
+        <p class="i18n-de">Backend-Profile <code>dev</code> (Postgres, Schema wird validiert) und
+          <code>demo</code> (Postgres, Schema bereits vorhanden).</p>
+      </div>
+      <div class="card">
+        <h3 class="i18n-en">Real GitOps CD</h3>
+        <h3 class="i18n-de">Echtes GitOps-CD</h3>
+        <p class="i18n-en">Merging to <code>main</code>/<code>develop</code> builds a Docker
+          image, pushes it to GHCR, then auto-commits the new image tag into a separate GitOps
+          config repo — from there it's picked up (ArgoCD). Not just build-and-test.</p>
+        <p class="i18n-de">Ein Merge nach <code>main</code>/<code>develop</code> baut ein
+          Docker-Image, pusht es zur GHCR und committet den neuen Image-Tag automatisch in ein
+          separates GitOps-Config-Repo — von dort wird er übernommen (ArgoCD). Nicht nur
+          Build-and-Test.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Auth -->
+  <div id="auth" class="step slide" data-x="0" data-y="900" data-scale="1">
+    <div class="i18n-en">
+      <span class="eyebrow">Authentication</span>
+      <h2>One switch, kept in sync on both sides</h2>
+    </div>
+    <div class="i18n-de">
+      <span class="eyebrow">Authentifizierung</span>
+      <h2>Ein Schalter, auf beiden Seiten synchron gehalten</h2>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <h3>Backend <code>security.mode</code></h3>
+        <p class="i18n-en"><code>default</code> permits everything, assuming an upstream identity
+          layer already authenticated the request. <code>no-auth</code> uses HTTP Basic with a
+          fixed password — for demo environments only.</p>
+        <p class="i18n-de"><code>default</code> erlaubt alles und geht davon aus, dass eine
+          vorgelagerte Identity-Schicht die Anfrage bereits authentifiziert hat.
+          <code>no-auth</code> nutzt HTTP Basic mit festem Passwort — nur für
+          Demo-Umgebungen.</p>
+      </div>
+      <div class="card">
+        <h3>Frontend <code>authType</code></h3>
+        <p class="i18n-en">Read from <code>assets/config.json</code> at runtime, not compiled
+          in — must match the backend's mode or auth breaks silently.</p>
+        <p class="i18n-de">Wird zur Laufzeit aus <code>assets/config.json</code> gelesen, nicht
+          eincompiliert — muss zum Backend-Modus passen, sonst bricht die Authentifizierung
+          stillschweigend.</p>
+      </div>
+      <div class="card">
+        <h3 class="i18n-en">Where this is headed</h3>
+        <h3 class="i18n-de">Wohin die Reise geht</h3>
+        <p class="i18n-en">Team decided on Keycloak + OAuth2-Proxy with GitHub as identity
+          provider (#254). Not implemented in code yet — tracked in #255/#256, both still
+          open.</p>
+        <p class="i18n-de">Das Team hat sich für Keycloak + OAuth2-Proxy mit GitHub als Identity
+          Provider entschieden (#254). Im Code noch nicht umgesetzt — nachverfolgt in
+          #255/#256, beide noch offen.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Feature highlights -->
+  <div id="features" class="step slide" data-x="2200" data-y="900" data-scale="1">
+    <div class="i18n-en">
+      <span class="eyebrow">Feature Highlights</span>
+      <h2>What the Innovator actually does</h2>
+    </div>
+    <div class="i18n-de">
+      <span class="eyebrow">Feature-Highlights</span>
+      <h2>Was der Innovator wirklich kann</h2>
+    </div>
+    <div class="lifecycle">
+      <span class="chip">DRAFT</span>
+      <span class="arrow">→</span>
+      <span class="chip">PUBLISHED</span>
+      <span class="arrow">→</span>
+      <span class="chip">REVIEW</span>
+      <span class="arrow">→</span>
+      <span class="chip">APPROVED / REJECTED</span>
+      <span class="arrow">→</span>
+      <span class="chip">PROGRESS</span>
+      <span class="arrow">→</span>
+      <span class="chip">ARCHIVED</span>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <h3 class="i18n-en">Roles</h3>
+        <h3 class="i18n-de">Rollen</h3>
+        <p class="i18n-en"><code>EMPLOYEE</code>, <code>ORGANISATOR</code>, <code>ADMIN</code> —
+          organisators can move ideas forward, but not their own.</p>
+        <p class="i18n-de"><code>EMPLOYEE</code>, <code>ORGANISATOR</code>, <code>ADMIN</code> —
+          Organisatoren können Ideen weiterschalten, aber nicht ihre eigenen.</p>
+      </div>
+      <div class="card">
+        <h3>Voting &amp; Review</h3>
+        <p class="i18n-en">Likes only while an idea is <code>PUBLISHED</code>/<code>REVIEW</code>/
+          <code>APPROVED</code>/<code>PROGRESS</code>; drafts are visible only to their
+          owner.</p>
+        <p class="i18n-de">Likes nur solange eine Idee <code>PUBLISHED</code>/<code>REVIEW</code>/
+          <code>APPROVED</code>/<code>PROGRESS</code> ist; Entwürfe sind nur für ihre Besitzer
+          sichtbar.</p>
+      </div>
+      <div class="card">
+        <h3 class="i18n-en">History &amp; tags</h3>
+        <h3 class="i18n-de">Historie &amp; Tags</h3>
+        <p class="i18n-en">Every idea's core fields are versioned and browsable via
+          <code>/ideas/{id}/versions</code>; tags are soft-hidden instead of deleted while
+          still in use.</p>
+        <p class="i18n-de">Die Kernfelder jeder Idee werden versioniert und sind über
+          <code>/ideas/{id}/versions</code> einsehbar; Tags werden bei Nutzung soft-versteckt
+          statt gelöscht.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Known gaps -->
+  <div id="gaps" class="step slide" data-x="2200" data-y="1800" data-scale="1">
+    <div class="i18n-en">
+      <span class="eyebrow">Don't Be Surprised</span>
+      <h2>What's not built yet</h2>
+    </div>
+    <div class="i18n-de">
+      <span class="eyebrow">Nicht wundern</span>
+      <h2>Was noch nicht gebaut ist</h2>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <h3 class="i18n-en">Comments are mocked</h3>
+        <h3 class="i18n-de">Kommentare sind nur Mock</h3>
+        <p class="i18n-en">The <code>Comment</code> entity/DTOs exist, but there's no REST
+          endpoint for it — the UI's comment section is currently hardcoded placeholder text.</p>
+        <p class="i18n-de">Die <code>Comment</code>-Entity/DTOs existieren, aber es gibt keinen
+          REST-Endpunkt dafür — der Kommentarbereich im UI zeigt aktuell fest codierten
+          Platzhaltertext.</p>
+      </div>
+      <div class="card">
+        <h3 class="i18n-en">No notifications</h3>
+        <h3 class="i18n-de">Keine Benachrichtigungen</h3>
+        <p class="i18n-en">No email/notification system exists — status changes notify no one;
+          the frontend would have to poll.</p>
+        <p class="i18n-de">Es gibt kein E-Mail-/Benachrichtigungssystem — Statusänderungen
+          informieren niemanden; das Frontend müsste pollen.</p>
+      </div>
+      <div class="card">
+        <h3 class="i18n-en">No admin tooling</h3>
+        <h3 class="i18n-de">Keine Admin-Tools</h3>
+        <p class="i18n-en">The <code>ADMIN</code> role exists, but there's no admin panel or
+          endpoints yet, and no Actuator/observability endpoints either.</p>
+        <p class="i18n-de">Die Rolle <code>ADMIN</code> existiert, aber es gibt weder ein
+          Admin-Panel noch passende Endpunkte, ebenso wenig Actuator-/Observability-Endpunkte.</p>
+      </div>
+      <div class="card">
+        <h3 class="i18n-en">Schema, not migrations</h3>
+        <h3 class="i18n-de">Schema statt Migrationen</h3>
+        <p class="i18n-en">No Flyway/Liquibase — the SQL schema is Hibernate-generated and
+          committed to git, with CI failing the build if it drifts from the entities.</p>
+        <p class="i18n-de">Kein Flyway/Liquibase — das SQL-Schema wird von Hibernate generiert
+          und ins Git committet; die CI lässt den Build fehlschlagen, wenn es von den Entities
+          abweicht.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. Closing -->
+  <div id="closing" class="step slide" data-x="3300" data-y="450" data-scale="1.4" data-rotate="0">
+    <div class="i18n-en">
+      <span class="eyebrow">Thanks for watching</span>
+      <h1>Questions?</h1>
+      <p class="subtitle">More detail in <code>README.md</code> and the per-app
+        <code>CLAUDE.md</code> files.</p>
+      <p class="hint">This is a draft version for #263 — one of several candidate landing
+        pages the team will compare.</p>
+    </div>
+    <div class="i18n-de">
+      <span class="eyebrow">Danke fürs Zuschauen</span>
+      <h1>Fragen?</h1>
+      <p class="subtitle">Mehr Details in <code>README.md</code> und den
+        <code>CLAUDE.md</code>-Dateien der einzelnen Apps.</p>
+      <p class="hint">Dies ist eine Entwurfsversion für #263 — eine von mehreren
+        Kandidaten-Landingpages, die das Team vergleichen wird.</p>
+    </div>
+  </div>
+
+</div>
+
+<div id="impress-toolbar"></div>
+
+<script src="script.js"></script>
+<script src="vendor/impress.js"></script>
+<script>impress().init();</script>
+</body>
+</html>
