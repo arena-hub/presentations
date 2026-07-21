@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ARENA Innovator — Overview</title>
+  <meta name="viewport" content="width=1024">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body class="impress-not-supported">
+
+  <div class="fallback-message">
+    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented
+      with a simplified version of this presentation.</p>
+    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b>.</p>
+  </div>
+
+  <div id="impress" data-transition-duration="800">
+
+      <div class="step slide" id="step-title" data-x="0" data-y="0">
+        <div class="tf" aria-hidden="true">
+          <span class="tf-tick tf-tl"></span>
+          <span class="tf-tick tf-tr"></span>
+          <span class="tf-tick tf-bl"></span>
+          <span class="tf-tick tf-br"></span>
+        </div>
+
+        <p class="t-kicker">Internal &middot; Team onboarding</p>
+
+        <h1 class="t-title">
+          <span class="t-arena">ARENA</span>
+          <span class="t-innovator">Innovator</span>
+        </h1>
+
+        <p class="t-sub">Our internal idea-management platform &mdash; employees submit
+        improvement ideas, the team votes and reviews them, and approved ideas
+        become projects.</p>
+
+        <p class="t-index-label">Sheet index</p>
+        <ul class="t-index">
+          <li class="t-i-stack"><span class="t-sheet">SH&middot;02</span> Technology stack</li>
+          <li class="t-i-flow"><span class="t-sheet">SH&middot;03</span> Idea lifecycle</li>
+          <li class="t-i-arch"><span class="t-sheet">SH&middot;04</span> Deployment &amp; infrastructure</li>
+          <li class="t-i-stack"><span class="t-sheet">SH&middot;05</span> Authentication</li>
+          <li class="t-i-arch"><span class="t-sheet">SH&middot;06</span> Architecture overview</li>
+        </ul>
+
+        <div class="t-block">
+          <div class="t-cell"><span class="t-lbl">Project</span><span class="t-val">ARENA Innovator</span></div>
+          <div class="t-cell"><span class="t-lbl">Sheet</span><span class="t-val">01 / Cover</span></div>
+          <div class="t-cell"><span class="t-lbl">Drawn by</span><span class="t-val">The team</span></div>
+          <div class="t-cell"><span class="t-lbl">Scale</span><span class="t-val">NTS</span></div>
+        </div>
+      </div>
+
+      <div class="step slide" id="step-techstack-fable" data-x="1200" data-y="0">
+        <span class="sheet-tag">02 / 06</span>
+        <header class="tsk-head">
+          <span class="tsk-kicker">Technology Stack</span>
+          <h2>One request, three layers</h2>
+        </header>
+        <div class="tsk-stack">
+          <section class="tsk-layer tsk-fe">
+            <span class="tsk-glyph"><i class="g-angular">A</i></span>
+            <div class="tsk-info">
+              <p class="tsk-tier">Frontend</p>
+              <p class="tsk-name">Angular</p>
+              <ul class="tsk-chips">
+                <li>standalone components — no NgModules</li>
+                <li>functional HTTP interceptors</li>
+                <li>feature-based folders</li>
+              </ul>
+            </div>
+          </section>
+          <div class="tsk-link"><em>HTTP · JSON</em></div>
+          <section class="tsk-layer tsk-be">
+            <span class="tsk-glyph"><i class="g-leaf"></i></span>
+            <div class="tsk-info">
+              <p class="tsk-tier">Backend</p>
+              <p class="tsk-name">Spring Boot 4</p>
+              <ul class="tsk-chips">
+                <li>Java 25</li>
+                <li>Maven</li>
+              </ul>
+            </div>
+          </section>
+          <div class="tsk-fork">
+            <em>SQL</em>
+            <span class="f-stem"></span>
+            <span class="f-bar"></span>
+            <span class="f-leg f-left"></span>
+            <span class="f-leg f-right"></span>
+          </div>
+          <section class="tsk-dbrow">
+            <div class="tsk-db tsk-pg">
+              <span class="tsk-badge">real environments</span>
+              <span class="g-cyl g-cyl-pg"></span>
+              <div>
+                <p class="tsk-name">PostgreSQL</p>
+                <p class="tsk-note">every deployed stage</p>
+              </div>
+            </div>
+            <div class="tsk-db tsk-h2db">
+              <span class="tsk-badge">local dev</span>
+              <span class="g-cyl g-cyl-h2"></span>
+              <div>
+                <p class="tsk-name">H2 · file-based</p>
+                <p class="tsk-note">zero dependencies, nothing to start</p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div class="step slide" id="step-lifecycle" data-x="2400" data-y="0">
+        <span class="sheet-tag">03 / 06</span>
+        <header class="lc-head">
+          <span class="lc-kicker">Domain model</span>
+          <h2 class="lc-title">Every idea is a <em>state machine</em></h2>
+          <p class="lc-sub">Six states, five arrows — and each governance rule pinned to the exact spot where it bites.</p>
+        </header>
+
+        <div class="lc-board">
+
+          <div class="lc-zone" aria-hidden="true">
+            <span class="lc-zone-tab"><span class="lc-heart"></span>voting lives here</span>
+          </div>
+
+          <div class="lc-bracket">
+            <span class="lc-bracket-label">
+              <b>advance:</b>
+              <span class="lc-person lc-p-owner" aria-hidden="true"></span>owner — own idea
+              <i class="lc-or">or</i>
+              <span class="lc-person lc-p-org" aria-hidden="true"></span>Organisator — anyone's, <span class="lc-never">never their own</span>
+            </span>
+          </div>
+
+          <div class="lc-node lc-n-draft">
+            <span class="lc-badge" aria-hidden="true"><span class="lc-lock"></span></span>
+            <strong>Draft</strong><small>owner's eyes only</small>
+          </div>
+          <div class="lc-arrow lc-a1"><i>publish</i></div>
+          <div class="lc-node lc-n-published"><strong>Published</strong><small>visible to all</small></div>
+          <div class="lc-arrow lc-a2"><i>submit</i></div>
+          <div class="lc-node lc-n-review"><strong>Review</strong><small>verdict pending</small></div>
+          <div class="lc-arrow lc-a3"><i>approve</i></div>
+          <div class="lc-node lc-n-approved"><strong>Approved</strong><small>green-lit</small></div>
+          <div class="lc-arrow lc-a4"><i>start</i></div>
+          <div class="lc-node lc-n-progress"><strong>Progress</strong><small>in build</small></div>
+          <div class="lc-arrow lc-a5"><i>nightly &middot; auto</i></div>
+          <div class="lc-node lc-n-archived"><strong>Archived</strong><small>aged out</small></div>
+
+          <p class="lc-note lc-draft-note">
+            <span class="lc-lock" aria-hidden="true"></span>
+            <span>invisible to everyone but the owner — <b>every revision</b>, not just the latest &middot; <b>no role bypass</b>, not even Admin</span>
+          </p>
+
+          <div class="lc-reject-lane">
+            <span class="lc-drop" aria-hidden="true"><i>reject</i></span>
+            <div class="lc-node lc-n-rejected"><strong>Rejected</strong><small>closed to votes</small></div>
+            <p class="lc-fork-note">one verdict per review — never both</p>
+          </div>
+
+          <p class="lc-note lc-archive-note">
+            <span class="lc-clock" aria-hidden="true"></span>
+            <span>no archive button — a job at <b>00:00 UTC</b> retires <b>PROGRESS</b> ideas past their project end date &middot; 500 a page &middot; 5 retries with backoff</span>
+          </p>
+
+          <div class="lc-vis">
+            <span class="lc-vis-label">
+              <span class="lc-eye" aria-hidden="true"></span>
+              visible to everyone, forever — rejected &amp; archived included
+            </span>
+          </div>
+
+        </div>
+
+        <footer class="lc-foot">
+          <span><b>roles:</b> Employee &amp; Organisator drive the arrows — Admin administers the platform, outside this flow</span>
+          <span class="lc-legend">
+            <span class="lc-dash" aria-hidden="true"></span>dashed arrow = exception or automatic
+            &middot;
+            <span class="lc-hatch" aria-hidden="true"></span>hatch + lock = owner-only
+          </span>
+        </footer>
+      </div>
+
+      <div class="step slide" id="step-deployment" data-x="0" data-y="1200">
+        <span class="sheet-tag">04 / 06</span>
+
+        <header class="dp-head">
+          <span class="dp-kicker">Deployment &amp; Infrastructure</span>
+          <h2>From <code>./run</code> to a cluster that corrects itself</h2>
+        </header>
+
+        <section class="dp-band">
+          <div class="dp-band-label">Develop<span>one command,<br>two paths</span></div>
+          <div class="dp-fork">
+            <div class="dp-cmd"><code>./run</code><small>db up &middot; start &middot; test</small></div>
+            <div class="dp-arms">
+              <div class="dp-arm">
+                <div class="dp-wire dp-wire-solid"><i class="dp-tag">default</i></div>
+                <div class="dp-card">
+                  <span class="dp-cyl dp-cyl-pg"></span>
+                  <div class="dp-card-txt">
+                    <strong>Real Postgres, in a container</strong>
+                    <p>docker / podman, seeded with demo data &mdash; schema validated against the committed schema file</p>
+                  </div>
+                </div>
+              </div>
+              <div class="dp-arm">
+                <div class="dp-wire dp-wire-dashed"><i class="dp-tag dp-tag-h2">-h2</i></div>
+                <div class="dp-card dp-card-dim">
+                  <span class="dp-cyl dp-cyl-h2"></span>
+                  <div class="dp-card-txt">
+                    <strong>File-based H2, zero infrastructure</strong>
+                    <p>opt-in flag &mdash; empty local file DB, no docker at all</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="dp-band">
+          <div class="dp-band-label">Ship<span>declarative,<br>end to end</span></div>
+          <div class="dp-pipe">
+
+            <div class="dp-stage">
+              <div class="dp-stage-title dp-t-green">Multi-stage image</div>
+              <div class="dp-split">
+                <div class="dp-half dp-half-hatch">
+                  <b>maven</b>
+                  <p>compiles the jar &mdash; stage discarded, toolchain never ships</p>
+                </div>
+                <div class="dp-half dp-half-run">
+                  <b>temurin JRE</b>
+                  <p>slim runtime only</p>
+                  <span class="dp-chip">appuser &middot; non-root</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="dp-arrow dp-arrow-solid">push</div>
+
+            <div class="dp-stage">
+              <div class="dp-stage-title dp-t-amber"><span class="dp-branch"></span>hub-gitops-config</div>
+              <p class="dp-stage-p">separate repo of Helm charts, one per app &mdash; a merge here <em>is</em> the deploy</p>
+            </div>
+
+            <div class="dp-arrow dp-arrow-dashed">watches</div>
+
+            <div class="dp-stage">
+              <div class="dp-stage-title dp-t-amber"><span class="dp-sync"></span>ArgoCD</div>
+              <ul class="dp-list">
+                <li>auto-sync</li>
+                <li>self-heal &mdash; drift reverted</li>
+                <li><span class="dp-prune">prune</span> &mdash; deletions removed</li>
+              </ul>
+            </div>
+
+            <div class="dp-arrow dp-arrow-dashed">applies</div>
+
+            <div class="dp-stage">
+              <div class="dp-stage-title dp-t-blue">Environments</div>
+              <div class="dp-env">
+                <span class="dp-cyl dp-cyl-pg dp-cyl-sm"></span>
+                <div><b>public demo</b><p>own Postgres &mdash; schema managed outside the app&rsquo;s migrations</p></div>
+              </div>
+              <div class="dp-env dp-env-ghost">
+                <div><b>&hellip; every other env</b><p>same chart &mdash; own values file + ArgoCD Application</p></div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <footer class="dp-foot">cluster state &equiv; repo state &mdash; no click-ops: drift self-heals, orphans get <span class="dp-prune">pruned</span></footer>
+
+      </div>
+
+      <div class="step slide" id="step-auth" data-x="1200" data-y="1200">
+        <span class="sheet-tag">05 / 06</span>
+        <div class="au-head">
+          <span class="au-kicker">Security &middot; Identity</span>
+          <h2 class="au-title">Authentication <em>&mdash; pragmatic today, federated next</em></h2>
+        </div>
+
+        <div class="au-body">
+          <section class="au-now">
+            <h3 class="au-colhead au-colhead--now">Today &middot; two simple modes<span class="au-tag">interim</span></h3>
+            <article class="au-mode">
+              <code class="au-prop">security.mode = default</code>
+              <p>Permits all requests at the security layer &mdash; real authentication is assumed to happen <strong>upstream</strong> of the app. The honest base configuration.</p>
+            </article>
+            <article class="au-mode">
+              <code class="au-prop">security.mode = no-auth</code>
+              <p>HTTP Basic where every seeded user&rsquo;s password is literally <code>"no-auth"</code>. A convenience for local dev and the demo, so the app is usable before a real identity provider is wired in &mdash; not an auth scheme.</p>
+            </article>
+          </section>
+
+          <div class="au-seam" aria-hidden="true">
+            <span class="au-seam-line"></span>
+            <span class="au-seam-arrow"></span>
+            <span class="au-seam-label">building&nbsp;toward</span>
+            <span class="au-seam-line"></span>
+          </div>
+
+          <section class="au-target">
+            <h3 class="au-colhead au-colhead--target">Target &middot; federated login</h3>
+            <ol class="au-chain">
+              <li class="au-node">
+                <span class="au-glyph au-g-user"></span>
+                <div class="au-node-text"><b>GitHub identity</b><small>the account everyone already has &mdash; no separate ARENA logins</small></div>
+                <span class="au-chip au-chip--ext">external</span>
+              </li>
+              <li class="au-node">
+                <span class="au-glyph au-g-key"></span>
+                <div class="au-node-text"><b>Keycloak realm</b><small>GitHub as the sole login method inside the realm</small></div>
+                <span class="au-chip au-chip--on">configured</span>
+              </li>
+              <li class="au-node">
+                <span class="au-glyph au-g-proxy"></span>
+                <div class="au-node-text"><b>OAuth2 Proxy</b><small>fronts the application; wired into the Helm chart as an init container</small></div>
+                <span class="au-chip au-chip--on">wired, not on yet</span>
+              </li>
+              <li class="au-node au-node--pending">
+                <span class="au-glyph au-g-app"></span>
+                <div class="au-node-text"><b>ARENA app</b><small>OAuth2-aware backend + real login flow &mdash; in flight</small></div>
+                <span class="au-chip au-chip--pending">in flight</span>
+              </li>
+            </ol>
+          </section>
+        </div>
+
+        <footer class="au-footer">
+          <div class="au-ledger au-ledger--built">
+            <h4>Plumbing already in place</h4>
+            <ul>
+              <li>Keycloak + OAuth2 Proxy in the deployment config (Helm init container)</li>
+              <li>GitHub configured as the identity provider inside the Keycloak realm</li>
+            </ul>
+          </div>
+
+          <div class="au-ledger au-ledger--pending">
+            <h4>Agreed, needs building</h4>
+            <ul>
+              <li>Backend Spring Security OAuth2 configuration</li>
+              <li>Frontend login/redirect flow &mdash; replaces today&rsquo;s Basic-auth prompt</li>
+              <li class="au-li--critical">
+                New-user provisioning on first login
+                <span class="au-crit-tag">no code creates a user today</span>
+                <small>creates the local user record + a default role. This has no equivalent today, for anyone &mdash; worth building deliberately, not bolting on.</small>
+              </li>
+              <li>Keep name &mdash; and likely role &mdash; in sync on <em>every</em> login, not just at signup
+                <small>GitHub display names change; nothing updates them today</small>
+              </li>
+              <li>Logout kept in sync between the app and Keycloak</li>
+            </ul>
+          </div>
+
+          <div class="au-open">
+            <span class="au-open-kicker">Open question &middot; unresolved</span>
+            <span class="au-q-mark" aria-hidden="true">?</span>
+            <p><b>Where should roles live?</b> Keep <code>EMPLOYEE / ORGANISATOR / ADMIN</code> as the backend&rsquo;s own model with Keycloak supplying identity only &mdash; or move authorization into Keycloak-issued claims? Genuinely undecided; depends on how hard the current role model turns out to be to migrate.</p>
+          </div>
+
+          <p class="au-note">Deliberately sequenced: the plumbing stays switched off while the app-side work lands &mdash; then turning it on is a switch-flip, not a project.</p>
+        </footer>
+      </div>
+
+      <div class="step slide" id="step-architecture" data-x="2400" data-y="1200">
+        <span class="sheet-tag">06 / 06</span>
+
+        <header class="arch-head">
+          <span class="kicker">Architecture Overview</span>
+          <h2>One repo, <em>two independent apps</em></h2>
+        </header>
+
+        <section class="repo-band" aria-label="Monorepo structure and CI">
+          <div class="repo-root">
+            <span class="root-glyph" aria-hidden="true"></span>
+            <span class="root-name">innovator/</span>
+            <span class="root-sub">two repos, merged &mdash;<br>still two apps</span>
+          </div>
+
+          <div class="branch-rail" aria-hidden="true"></div>
+
+          <div class="lanes">
+            <div class="lane lane-fe">
+              <div class="app-card">
+                <span class="app-dot" aria-hidden="true"></span>
+                <div class="app-meta">
+                  <strong>apps/frontend</strong>
+                  <span>standalone Angular components, no NgModules &middot; organized by feature &middot; interceptors &amp; guards as plain functions</span>
+                </div>
+              </div>
+              <span class="tool-chip">npm</span>
+              <div class="ci-pipe">
+                <span class="ci-filter">paths: apps/frontend/**</span>
+              </div>
+              <div class="ci-badge"><span class="badge-dot" aria-hidden="true"></span>frontend-*.yml</div>
+            </div>
+
+            <div class="lane lane-be">
+              <div class="app-card">
+                <span class="app-dot" aria-hidden="true"></span>
+                <div class="app-meta">
+                  <strong>apps/backend</strong>
+                  <span>Spring Boot API &middot; own dependencies &middot; own versioning</span>
+                </div>
+              </div>
+              <span class="tool-chip">Maven</span>
+              <div class="ci-pipe">
+                <span class="ci-filter">paths: apps/backend/**</span>
+              </div>
+              <div class="ci-badge"><span class="badge-dot" aria-hidden="true"></span>backend-*.yml</div>
+            </div>
+          </div>
+
+          <div class="run-bridge">
+            <code>./run &lt;action&gt; &lt;app&gt;</code>
+            <span class="bridge-note">a dispatcher, not a build system &mdash; no unifying toolchain on top, by design</span>
+          </div>
+        </section>
+
+        <section class="cutaway" aria-label="Backend internal layering">
+          <div class="strata-side">
+            <div class="cut-head">
+              <span class="cut-kicker">cross-section</span>
+              <h3>inside <code>apps/backend</code></h3>
+            </div>
+            <div class="strata">
+              <div class="stratum">
+                <span class="depth">01</span>
+                <strong>controller</strong>
+                <span class="s-note">HTTP edge &mdash; speaks DTOs only</span>
+              </div>
+              <div class="stratum">
+                <span class="depth">02</span>
+                <strong>services</strong>
+                <span class="s-note">business rules</span>
+              </div>
+              <div class="stratum">
+                <span class="depth">03</span>
+                <strong>repositorys</strong>
+                <span class="sic">sic &mdash; deliberate, do not fix</span>
+                <span class="s-note">Spring Data JPA</span>
+              </div>
+              <div class="stratum s-entities">
+                <span class="depth">04</span>
+                <strong>entities</strong>
+                <span class="s-note">JPA object graph &mdash; nested relations</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mapper-side">
+            <div class="mapper-card">
+              <span class="mapper-kicker">mapper &middot; MapStruct</span>
+              <div class="mapper-flow">
+                <span class="m-end m-entity">entity<em>nested graph</em></span>
+                <span class="m-arrow" aria-hidden="true"></span>
+                <span class="m-end m-dto">DTO<em>flat</em></span>
+              </div>
+              <p class="mapper-note">relationships cross the API as <strong>IDs only</strong> &mdash; never nested objects. The contract stays flat.</p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+  </div>
+
+  <script src="vendor/impress.js"></script>
+  <script>impress().init();</script>
+</body>
+</html>
