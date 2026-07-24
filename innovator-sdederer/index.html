@@ -27,54 +27,74 @@
             Deployment der internen Ideenmanagement-Plattform &mdash; für Onboarding und Stakeholder.</p>
 
         <ol class="cover-index">
-            <li><span class="n">02</span> Feature-Highlights</li>
+            <li><span class="n">02</span> Features &amp; Idee-Lebenszyklus</li>
             <li><span class="n">03</span> Technologie-Stack</li>
-            <li><span class="n">04</span> Architektur &amp; Monorepo</li>
-            <li><span class="n">05</span> Authentifizierung</li>
-            <li><span class="n">06</span> Deployment &amp; Infrastruktur</li>
-            <li><span class="n">07</span> Umgebungen &amp; CI/CD</li>
+            <li><span class="n">04</span> Backend im Querschnitt</li>
+            <li><span class="n">05</span> Architektur &amp; Monorepo</li>
+            <li><span class="n">06</span> Authentifizierung</li>
+            <li><span class="n">07</span> Deployment &amp; GitOps</li>
+            <li><span class="n">08</span> Umgebungen &amp; lokale Entwicklung</li>
         </ol>
 
         <div class="cover-meta">
             <span><b>Projekt</b> &nbsp;ARENA Innovator</span>
+            <span><b>Product Owner</b> &nbsp;Thomas Fritsche</span>
             <span><b>Basis</b> &nbsp;impress.js</span>
-            <span><b>Autor</b> &nbsp;S. Dederer</span>
             <span><b>Issue</b> &nbsp;#263</span>
         </div>
     </div>
 
-    <!-- 02 · FEATURES -->
-    <div class="step" data-x="1700" data-y="0">
+    <!-- 02 · FEATURES & LIFECYCLE -->
+    <div class="step" data-x="1800" data-y="0">
         <div class="panel">
-            <span class="sheet-tag">02 / 07</span>
+            <span class="sheet-tag">02 / 08</span>
             <p class="kicker">Was der Innovator kann</p>
             <h2>Von der Idee zum Projekt</h2>
-            <p class="lead">Mitarbeitende reichen Verbesserungsideen ein, das Team bewertet und
-                prüft sie &mdash; angenommene Ideen werden zu echten Projekten.</p>
+            <p class="lead">Mitarbeitende reichen Ideen ein, das Team bewertet und prüft sie &mdash;
+                angenommene Ideen werden zu echten Projekten.</p>
             <div class="feature-grid">
                 <div class="feature">
                     <span class="num">FEAT · 01</span>
                     <h3>Ideen einreichen</h3>
-                    <p>Strukturierte Erfassung von Ideen inkl. Beschreibung, Kategorie und Anhängen.</p>
+                    <p>Erfassung inkl. Beschreibung &amp; Kategorie. Entwürfe sind nur für den Autor sichtbar.</p>
                 </div>
                 <div class="feature">
                     <span class="num">FEAT · 02</span>
                     <h3>Voting</h3>
-                    <p>Das Team stimmt über eingereichte Ideen ab &mdash; die relevantesten steigen auf.</p>
+                    <p>Das Team stimmt über veröffentlichte Ideen ab &mdash; die relevantesten steigen auf.</p>
                 </div>
                 <div class="feature">
                     <span class="num">FEAT · 03</span>
                     <h3>Review-Workflow</h3>
-                    <p>Ideen durchlaufen definierte Status bis zur Annahme und Projektüberführung.</p>
+                    <p>Organisator:innen prüfen Ideen; ein Verdikt pro Review &mdash; angenommen oder abgelehnt.</p>
                 </div>
             </div>
+
+            <p class="kicker" style="margin-top:24px">Idee als Zustandsautomat</p>
+            <div class="lifecycle">
+                <div class="lc-node"><b>Draft</b><small>nur Autor</small></div>
+                <div class="lc-arrow"><span class="glyph">→</span>publish</div>
+                <div class="lc-node"><b>Published</b><small>für alle</small></div>
+                <div class="lc-arrow"><span class="glyph">→</span>submit</div>
+                <div class="lc-node"><b>Review</b><small>Verdikt offen</small></div>
+                <div class="lc-arrow"><span class="glyph">→</span>approve</div>
+                <div class="lc-node"><b>Approved</b><small>freigegeben</small></div>
+                <div class="lc-arrow"><span class="glyph">→</span>start</div>
+                <div class="lc-node"><b>Progress</b><small>in Umsetzung</small></div>
+                <div class="lc-arrow"><span class="glyph">⇢</span>auto</div>
+                <div class="lc-node"><b>Archived</b><small>ausgelaufen</small></div>
+                <div class="lc-arrow"><span class="glyph">↘</span>reject</div>
+                <div class="lc-node reject"><b>Rejected</b><small>abgelehnt</small></div>
+            </div>
+            <p class="lc-note">Rollen <strong>Employee</strong> &amp; <strong>Organisator</strong> treiben die Übergänge &middot;
+                Archivierung durch einen Job um 00:00 UTC &middot; abgelehnte &amp; archivierte Ideen bleiben sichtbar</p>
         </div>
     </div>
 
     <!-- 03 · TECH STACK -->
-    <div class="step" data-x="3400" data-y="0">
+    <div class="step" data-x="3600" data-y="0">
         <div class="panel">
-            <span class="sheet-tag">03 / 07</span>
+            <span class="sheet-tag">03 / 08</span>
             <p class="kicker">Technologie-Stack</p>
             <h2>Eine Anfrage, drei Schichten</h2>
             <div class="stack">
@@ -84,22 +104,23 @@
                         <div class="name">Angular</div>
                     </div>
                     <ul class="chips">
-                        <li>standalone components</li>
-                        <li>functional interceptors</li>
-                        <li>feature-based folders</li>
-                        <li>apps/frontend</li>
+                        <li>standalone components — keine NgModules</li>
+                        <li>Interceptors &amp; Guards als Funktionen</li>
+                        <li>feature-basierte Ordnerstruktur</li>
+                        <li>Build: npm</li>
                     </ul>
                 </div>
-                <div class="flow-arrow">▼ &nbsp; HTTP · JSON &nbsp; ▼</div>
+                <div class="flow-arrow">▼ &nbsp; REST · HTTP · JSON &nbsp; ▼</div>
                 <div class="layer be">
                     <div>
                         <div class="tier">Backend</div>
-                        <div class="name">Spring Boot <small>· Java 25</small></div>
+                        <div class="name">Spring Boot 4 <small>· Java 25</small></div>
                     </div>
                     <ul class="chips">
-                        <li>Maven</li>
+                        <li>Build: Maven</li>
+                        <li>Spring Data JPA</li>
+                        <li>MapStruct (Entity ↔ DTO)</li>
                         <li>REST API</li>
-                        <li>apps/backend</li>
                     </ul>
                 </div>
                 <div class="flow-arrow">▼ &nbsp; SQL &nbsp; ▼</div>
@@ -110,151 +131,190 @@
                     </div>
                     <ul class="chips">
                         <li>PostgreSQL — jede deployte Umgebung</li>
-                        <li>H2 file-based — lokale Entwicklung, ohne Setup</li>
+                        <li>H2 file-based — lokale Entwicklung ohne Setup</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 04 · ARCHITECTURE / MONOREPO -->
-    <div class="step" data-x="5100" data-y="0">
+    <!-- 04 · BACKEND CROSS-SECTION -->
+    <div class="step" data-x="5400" data-y="0">
         <div class="panel">
-            <span class="sheet-tag">04 / 07</span>
+            <span class="sheet-tag">04 / 08</span>
+            <p class="kicker">Backend im Querschnitt · apps/backend</p>
+            <h2>Klare Schichtung von der HTTP-Kante zur DB</h2>
+            <div class="strata">
+                <div class="stratum">
+                    <span class="depth">01</span><strong>controller</strong>
+                    <span class="note">HTTP-Kante — spricht ausschließlich DTOs</span>
+                </div>
+                <div class="stratum">
+                    <span class="depth">02</span><strong>services</strong>
+                    <span class="note">Geschäftslogik &amp; Regeln</span>
+                </div>
+                <div class="stratum">
+                    <span class="depth">03</span><strong>repositorys<span class="sic">sic</span></strong>
+                    <span class="note">Spring Data JPA — Persistenzzugriff</span>
+                </div>
+                <div class="stratum">
+                    <span class="depth">04</span><strong>entities</strong>
+                    <span class="note">JPA-Objektgraph — verschachtelte Relationen</span>
+                </div>
+            </div>
+            <p class="mapper"><b>MapStruct</b> mappt den verschachtelten Entity-Graph auf flache DTOs.
+                Relationen überqueren die API <strong>nur als IDs</strong>, nie als geschachtelte Objekte &mdash;
+                der Contract bleibt flach.</p>
+        </div>
+    </div>
+
+    <!-- 05 · ARCHITECTURE / MONOREPO -->
+    <div class="step" data-x="7200" data-y="0">
+        <div class="panel">
+            <span class="sheet-tag">05 / 08</span>
             <p class="kicker">Architektur · Monorepo (#251)</p>
-            <h2>Ein Repo, klar getrennte Apps</h2>
+            <h2>Ein Repo, zwei unabhängige Apps</h2>
             <div class="two-col">
                 <div class="card fe">
                     <h3><span class="dot"></span> apps/frontend</h3>
                     <ul>
                         <li>Angular Single-Page-App</li>
-                        <li>Kommuniziert per REST mit dem Backend</li>
-                        <li>Wird als Container ausgeliefert</li>
+                        <li>eigene Abhängigkeiten &amp; Versionierung</li>
+                        <li>CI: <code>frontend-*.yml</code>, Pfadfilter <code>apps/frontend/**</code></li>
                     </ul>
                 </div>
                 <div class="card be">
                     <h3><span class="dot"></span> apps/backend</h3>
                     <ul>
-                        <li>Spring Boot / Java 25 Service</li>
-                        <li>Business-Logik &amp; Persistenz</li>
-                        <li>Stellt die REST API bereit</li>
+                        <li>Spring Boot API</li>
+                        <li>eigene Abhängigkeiten &amp; Versionierung</li>
+                        <li>CI: <code>backend-*.yml</code>, Pfadfilter <code>apps/backend/**</code></li>
                     </ul>
                 </div>
             </div>
-            <p style="margin-top:22px">Frontend und Backend liegen zusammen im <strong>Monorepo</strong> &mdash;
-                gemeinsame Konventionen, ein Ort für Doku (<code style="font-family:var(--mono);color:var(--accent)">README.md</code>,
+            <p style="margin-top:20px"><code style="font-family:var(--mono);color:var(--accent)">./run &lt;action&gt; &lt;app&gt;</code>
+                ist ein <strong>Dispatcher</strong>, kein Build-System &mdash; bewusst keine vereinheitlichende
+                Toolchain darüber. Doku liegt zentral im Repo
+                (<code style="font-family:var(--mono);color:var(--accent)">README.md</code>,
                 <code style="font-family:var(--mono);color:var(--accent)">CLAUDE.md</code>,
-                <code style="font-family:var(--mono);color:var(--accent)">MIGRATION.md</code>) und eine
-                durchgängige CI/CD-Pipeline.</p>
+                <code style="font-family:var(--mono);color:var(--accent)">MIGRATION.md</code>).</p>
         </div>
     </div>
 
-    <!-- 05 · AUTHENTICATION -->
-    <div class="step" data-x="6800" data-y="0">
+    <!-- 06 · AUTHENTICATION -->
+    <div class="step" data-x="9000" data-y="0">
         <div class="panel">
-            <span class="sheet-tag">05 / 07</span>
+            <span class="sheet-tag">06 / 08</span>
             <p class="kicker">Authentifizierung (#255 · #256)</p>
-            <h2>Login über GitHub — abgesichert</h2>
-            <p class="lead">Der Zugriff läuft über einen vorgeschalteten Proxy und einen zentralen
-                Identity-Broker; GitHub dient als Identity Provider.</p>
-            <div class="flow">
-                <div class="node">
-                    <span class="role">Nutzer</span>
-                    <div class="who">Browser</div>
-                    <p>ruft die App auf</p>
+            <h2>Pragmatisch heute, föderiert als Ziel</h2>
+            <div class="auth-cols">
+                <div class="auth-col now">
+                    <h3>Heute <span class="tag">interim</span></h3>
+                    <div class="mode">
+                        <code>security.mode = default</code>
+                        <p>Lässt alle Requests durch — echte Auth wird <strong>vorgelagert</strong> angenommen.</p>
+                    </div>
+                    <div class="mode">
+                        <code>security.mode = no-auth</code>
+                        <p>HTTP Basic; Passwort jedes Seed-Users ist <code>"no-auth"</code> — für lokale Dev &amp; Demo.</p>
+                    </div>
+                    <p class="roles">Rollen: <code>EMPLOYEE</code> · <code>ORGANISATOR</code> · <code>ADMIN</code></p>
                 </div>
-                <div class="hop">→</div>
-                <div class="node">
-                    <span class="role">Gatekeeper</span>
-                    <div class="who">OAuth2-Proxy</div>
-                    <p>erzwingt Login vor der App</p>
-                </div>
-                <div class="hop">→</div>
-                <div class="node">
-                    <span class="role">Broker</span>
-                    <div class="who">Keycloak</div>
-                    <p>OAuth2 / OIDC Identity-Broker</p>
-                </div>
-                <div class="hop">→</div>
-                <div class="node">
-                    <span class="role">Identity Provider</span>
-                    <div class="who">GitHub</div>
-                    <p>authentifiziert den Nutzer</p>
+                <div class="auth-col next">
+                    <h3>Ziel <span class="tag">föderiert</span></h3>
+                    <ul class="chain">
+                        <li><span class="step-n">1</span><span><b>GitHub</b><small>Identity Provider — vorhandenes Konto</small></span><span class="status ext">extern</span></li>
+                        <li><span class="step-n">2</span><span><b>Keycloak</b><small>Realm, GitHub als einzige Login-Methode</small></span><span class="status ok">konfiguriert</span></li>
+                        <li><span class="step-n">3</span><span><b>OAuth2-Proxy</b><small>vorgeschaltet, als Init-Container im Helm-Chart</small></span><span class="status wip">verdrahtet</span></li>
+                        <li><span class="step-n">4</span><span><b>ARENA App</b><small>OAuth2-Backend + Login-Flow</small></span><span class="status wip">in Arbeit</span></li>
+                    </ul>
                 </div>
             </div>
+            <p class="lc-note" style="margin-top:16px">Bewusst sequenziert: Die Infrastruktur bleibt aus, bis die
+                App-Seite steht &mdash; dann ist das Aktivieren ein Schalter, kein Projekt.</p>
         </div>
     </div>
 
-    <!-- 06 · DEPLOYMENT -->
-    <div class="step" data-x="8500" data-y="0">
+    <!-- 07 · DEPLOYMENT -->
+    <div class="step" data-x="10800" data-y="0">
         <div class="panel">
-            <span class="sheet-tag">06 / 07</span>
+            <span class="sheet-tag">07 / 08</span>
             <p class="kicker">Deployment &amp; Infrastruktur</p>
-            <h2>Container in, GitOps out</h2>
+            <h2>Container rein, GitOps raus</h2>
             <div class="pipe">
                 <div class="stage">
-                    <span class="s-name">Build</span>
-                    <span class="s-tool">CI-Pipeline</span>
+                    <span class="s-name">Multi-Stage Image</span>
+                    <span class="s-tool">Maven → Temurin JRE · non-root</span>
                 </div>
                 <div class="hop">→</div>
                 <div class="stage">
-                    <span class="s-name">Container</span>
+                    <span class="s-name">gitops-config</span>
+                    <span class="s-tool">Helm-Charts, 1 pro App</span>
+                </div>
+                <div class="hop">→</div>
+                <div class="stage">
+                    <span class="s-name">ArgoCD</span>
+                    <span class="s-tool">auto-sync · self-heal · prune</span>
+                </div>
+                <div class="hop">→</div>
+                <div class="stage">
+                    <span class="s-name">Cluster</span>
                     <span class="s-tool">Podman / Docker</span>
                 </div>
-                <div class="hop">→</div>
-                <div class="stage">
-                    <span class="s-name">Registry</span>
-                    <span class="s-tool">Image + Tag</span>
-                </div>
-                <div class="hop">→</div>
-                <div class="stage">
-                    <span class="s-name">Deploy</span>
-                    <span class="s-tool">ArgoCD · GitOps</span>
-                </div>
             </div>
-            <p>Anwendungen werden <strong>containerisiert</strong> (Podman/Docker) und über
-                <strong>ArgoCD</strong> nach dem <strong>GitOps</strong>-Prinzip ausgerollt: Der
-                gewünschte Zustand steht in Git, ArgoCD gleicht das Cluster kontinuierlich damit ab.</p>
+            <p>Das Build-Image ist <strong>mehrstufig</strong>: Maven kompiliert das JAR, die Build-Stage wird
+                verworfen (Toolchain wird nie ausgeliefert), es läuft nur ein schlankes Temurin-JRE als
+                <strong>non-root</strong>. Ein Merge in <strong>gitops-config</strong> <em>ist</em> das Deployment:
+                <strong>ArgoCD</strong> gleicht den Cluster kontinuierlich mit Git ab &mdash; Drift wird geheilt,
+                verwaiste Ressourcen werden entfernt.</p>
+            <p class="lc-note">Cluster-Zustand ≡ Repo-Zustand — kein Click-Ops.</p>
         </div>
     </div>
 
-    <!-- 07 · ENVIRONMENTS / CI-CD -->
-    <div class="step" data-x="10200" data-y="0">
+    <!-- 08 · ENVIRONMENTS & LOCAL DEV -->
+    <div class="step" data-x="12600" data-y="0">
         <div class="panel">
-            <span class="sheet-tag">07 / 07</span>
-            <p class="kicker">Umgebungen &amp; CI/CD</p>
-            <h2>Drei Stufen bis zum Team</h2>
-            <div class="env-row">
-                <div class="env dev">
-                    <span class="badge">dev</span>
-                    <p>Kontinuierliche Integration neuer Änderungen — schnelles Feedback.</p>
+            <span class="sheet-tag">08 / 08</span>
+            <p class="kicker">Umgebungen &amp; lokale Entwicklung</p>
+            <h2>Von <code style="font-family:var(--mono);color:var(--accent)">./run</code> bis zum Cluster</h2>
+
+            <span class="run-cmd">./run
+                <span class="sub">db hochfahren · starten · testen — ein Kommando</span>
+            </span>
+            <div class="split2">
+                <div class="opt default">
+                    <span class="flag">default</span>
+                    <h3>Echtes PostgreSQL im Container</h3>
+                    <p>Docker/Podman, mit Demo-Daten geseedet &mdash; Schema gegen die committete Schema-Datei geprüft.</p>
                 </div>
-                <div class="env demo">
-                    <span class="badge">demo</span>
-                    <p>Vorführbarer Stand für Stakeholder und Reviews.</p>
-                </div>
-                <div class="env staging">
-                    <span class="badge">staging</span>
-                    <p>Produktionsnahe Absicherung vor dem finalen Rollout.</p>
+                <div class="opt h2">
+                    <span class="flag">--h2 (opt-in)</span>
+                    <h3>File-based H2, null Infrastruktur</h3>
+                    <p>Leere lokale Datei-DB, komplett ohne Docker &mdash; sofort startklar.</p>
                 </div>
             </div>
-            <p style="margin-top:22px">Jeder Merge durchläuft die <strong>CI/CD-Pipeline</strong>:
-                Build &amp; Tests, Container-Build, dann GitOps-Deployment in die passende Umgebung.</p>
+
+            <p class="kicker" style="margin-top:22px">Deployte Umgebungen</p>
+            <div class="env-row">
+                <div class="env dev"><span class="badge">dev</span><p>Kontinuierliche Integration — schnelles Feedback.</p></div>
+                <div class="env demo"><span class="badge">demo</span><p>Öffentlich vorführbarer Stand für Stakeholder.</p></div>
+                <div class="env staging"><span class="badge">staging</span><p>Produktionsnahe Absicherung vor dem Rollout.</p></div>
+            </div>
         </div>
     </div>
 
-    <!-- 08 · OUTRO / OVERVIEW -->
-    <div id="outro" class="step" data-x="5100" data-y="-2600" data-scale="3">
+    <!-- 09 · OUTRO / OVERVIEW -->
+    <div id="outro" class="step" data-x="7200" data-y="-2800" data-scale="3">
         <p class="kicker" style="text-align:center">Das große Ganze</p>
         <h2>Idee → Voting → Review → Projekt</h2>
-        <p class="lead" style="margin:0 auto">Angular vorne, Spring Boot / Java 25 hinten, PostgreSQL
-            als Speicher &mdash; abgesichert über Keycloak &amp; GitHub, containerisiert und per
+        <p class="lead" style="margin:0 auto">Angular vorne, Spring Boot 4 / Java 25 hinten, PostgreSQL
+            als Speicher &mdash; abgesichert über Keycloak &amp; GitHub, mehrstufig containerisiert und per
             ArgoCD-GitOps über dev, demo und staging ausgerollt.</p>
         <ul class="map-legend">
-            <li><b>STACK</b> &nbsp;Angular · Spring Boot · Java 25 · PostgreSQL / H2</li>
+            <li><b>STACK</b> &nbsp;Angular · Spring Boot 4 · Java 25 · PostgreSQL / H2</li>
+            <li><b>BACKEND</b> &nbsp;controller → service → repository → entity · MapStruct</li>
             <li><b>AUTH</b> &nbsp;OAuth2-Proxy · Keycloak · GitHub IdP</li>
-            <li><b>DEPLOY</b> &nbsp;Podman/Docker · ArgoCD · GitOps</li>
-            <li><b>ENVS</b> &nbsp;dev · demo · staging</li>
+            <li><b>DEPLOY</b> &nbsp;Multi-Stage · Helm · ArgoCD · GitOps</li>
         </ul>
     </div>
 

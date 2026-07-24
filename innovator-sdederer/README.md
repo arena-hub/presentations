@@ -13,16 +13,20 @@ eingebunden.
 
 ## Design
 
-Dunkles „Mission-Control / Systems-Console"-Layout mit Monospace-Akzenten. Sieben inhaltliche
+Dunkles „Mission-Control / Systems-Console"-Layout mit Monospace-Akzenten. Acht inhaltliche
 Steps plus ein herausgezoomter Überblick am Ende:
 
 1. Cover / Inhalt
-2. Feature-Highlights (Ideen · Voting · Review-Workflow)
-3. Technologie-Stack (Angular · Spring Boot / Java 25 · PostgreSQL / H2)
-4. Architektur & Monorepo (`apps/frontend`, `apps/backend`)
-5. Authentifizierung (OAuth2-Proxy · Keycloak · GitHub IdP)
-6. Deployment & Infrastruktur (Podman/Docker · ArgoCD · GitOps)
-7. Umgebungen & CI/CD (dev · demo · staging)
+2. Features & Idee-Lebenszyklus (Draft → Published → Review → Approved → Progress → Archived)
+3. Technologie-Stack (Angular · Spring Boot 4 / Java 25 · PostgreSQL / H2 · Spring Data JPA · MapStruct)
+4. Backend im Querschnitt (controller → service → repository → entity, MapStruct Entity↔DTO)
+5. Architektur & Monorepo (`apps/frontend`, `apps/backend`, `./run` Dispatcher, per-App CI)
+6. Authentifizierung (heute: `default` / `no-auth` — Ziel: GitHub → Keycloak → OAuth2-Proxy → App)
+7. Deployment & GitOps (Multi-Stage-Image → Helm → ArgoCD self-heal/prune)
+8. Umgebungen & lokale Entwicklung (`./run`, Container-Postgres vs. H2; dev · demo · staging)
+
+Product Owner: Thomas Fritsche. Weitere Teilnehmende sind bewusst nicht gelistet, da sich die
+Besetzung ändert.
 
 ## Starten
 
