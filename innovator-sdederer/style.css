@@ -70,7 +70,7 @@ body {
     transition: opacity 0.6s ease;
 }
 .impress-enabled .step { margin: 0; }
-.impress-on .step.active { opacity: 1; }
+.step.active { opacity: 1; }
 
 /* Card chrome shared by content steps */
 .panel {
@@ -478,7 +478,7 @@ strong { color: var(--ink); }
     opacity: 0;
     transition: opacity 0.5s;
 }
-.impress-on .hint { opacity: 0.8; }
+.impress-enabled .hint { opacity: 0.8; }
 
 /* impress fallback when disabled: stack vertically */
 .impress-not-supported .step { opacity: 1; margin: 40px auto; }
