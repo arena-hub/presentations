@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1024">
+    <title>ARENA Innovator — Technologie- &amp; Deployment-Überblick</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body class="impress-not-supported">
+
+<div class="fallback-message">
+    <p>Dein Browser <b>unterstützt die von impress.js benötigten Features nicht</b>, daher siehst
+        du eine vereinfachte Version dieser Präsentation.</p>
+    <p>Für das beste Erlebnis nutze bitte ein aktuelles <b>Chrome</b>, <b>Safari</b> oder <b>Firefox</b>.</p>
+</div>
+
+<div id="impress" data-transition-duration="800">
+
+    <!-- 01 · COVER -->
+    <div id="cover" class="step" data-x="0" data-y="0" data-scale="1">
+        <p class="cover-brand">ARENA · Interne Dokumentation</p>
+        <h1 class="cover-title">
+            <span class="arena">ARENA</span>
+            <span class="innov">Innovator</span>
+        </h1>
+        <p class="cover-sub">Ein visueller Überblick über Technologie-Stack, Architektur und
+            Deployment der internen Ideenmanagement-Plattform &mdash; für Onboarding und Stakeholder.</p>
+
+        <ol class="cover-index">
+            <li><span class="n">02</span> Feature-Highlights</li>
+            <li><span class="n">03</span> Technologie-Stack</li>
+            <li><span class="n">04</span> Architektur &amp; Monorepo</li>
+            <li><span class="n">05</span> Authentifizierung</li>
+            <li><span class="n">06</span> Deployment &amp; Infrastruktur</li>
+            <li><span class="n">07</span> Umgebungen &amp; CI/CD</li>
+        </ol>
+
+        <div class="cover-meta">
+            <span><b>Projekt</b> &nbsp;ARENA Innovator</span>
+            <span><b>Basis</b> &nbsp;impress.js</span>
+            <span><b>Autor</b> &nbsp;S. Dederer</span>
+            <span><b>Issue</b> &nbsp;#263</span>
+        </div>
+    </div>
+
+    <!-- 02 · FEATURES -->
+    <div class="step" data-x="1700" data-y="0">
+        <div class="panel">
+            <span class="sheet-tag">02 / 07</span>
+            <p class="kicker">Was der Innovator kann</p>
+            <h2>Von der Idee zum Projekt</h2>
+            <p class="lead">Mitarbeitende reichen Verbesserungsideen ein, das Team bewertet und
+                prüft sie &mdash; angenommene Ideen werden zu echten Projekten.</p>
+            <div class="feature-grid">
+                <div class="feature">
+                    <span class="num">FEAT · 01</span>
+                    <h3>Ideen einreichen</h3>
+                    <p>Strukturierte Erfassung von Ideen inkl. Beschreibung, Kategorie und Anhängen.</p>
+                </div>
+                <div class="feature">
+                    <span class="num">FEAT · 02</span>
+                    <h3>Voting</h3>
+                    <p>Das Team stimmt über eingereichte Ideen ab &mdash; die relevantesten steigen auf.</p>
+                </div>
+                <div class="feature">
+                    <span class="num">FEAT · 03</span>
+                    <h3>Review-Workflow</h3>
+                    <p>Ideen durchlaufen definierte Status bis zur Annahme und Projektüberführung.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 03 · TECH STACK -->
+    <div class="step" data-x="3400" data-y="0">
+        <div class="panel">
+            <span class="sheet-tag">03 / 07</span>
+            <p class="kicker">Technologie-Stack</p>
+            <h2>Eine Anfrage, drei Schichten</h2>
+            <div class="stack">
+                <div class="layer fe">
+                    <div>
+                        <div class="tier">Frontend</div>
+                        <div class="name">Angular</div>
+                    </div>
+                    <ul class="chips">
+                        <li>standalone components</li>
+                        <li>functional interceptors</li>
+                        <li>feature-based folders</li>
+                        <li>apps/frontend</li>
+                    </ul>
+                </div>
+                <div class="flow-arrow">▼ &nbsp; HTTP · JSON &nbsp; ▼</div>
+                <div class="layer be">
+                    <div>
+                        <div class="tier">Backend</div>
+                        <div class="name">Spring Boot <small>· Java 25</small></div>
+                    </div>
+                    <ul class="chips">
+                        <li>Maven</li>
+                        <li>REST API</li>
+                        <li>apps/backend</li>
+                    </ul>
+                </div>
+                <div class="flow-arrow">▼ &nbsp; SQL &nbsp; ▼</div>
+                <div class="layer db">
+                    <div>
+                        <div class="tier">Datenbank</div>
+                        <div class="name">PostgreSQL</div>
+                    </div>
+                    <ul class="chips">
+                        <li>PostgreSQL — jede deployte Umgebung</li>
+                        <li>H2 file-based — lokale Entwicklung, ohne Setup</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 04 · ARCHITECTURE / MONOREPO -->
+    <div class="step" data-x="5100" data-y="0">
+        <div class="panel">
+            <span class="sheet-tag">04 / 07</span>
+            <p class="kicker">Architektur · Monorepo (#251)</p>
+            <h2>Ein Repo, klar getrennte Apps</h2>
+            <div class="two-col">
+                <div class="card fe">
+                    <h3><span class="dot"></span> apps/frontend</h3>
+                    <ul>
+                        <li>Angular Single-Page-App</li>
+                        <li>Kommuniziert per REST mit dem Backend</li>
+                        <li>Wird als Container ausgeliefert</li>
+                    </ul>
+                </div>
+                <div class="card be">
+                    <h3><span class="dot"></span> apps/backend</h3>
+                    <ul>
+                        <li>Spring Boot / Java 25 Service</li>
+                        <li>Business-Logik &amp; Persistenz</li>
+                        <li>Stellt die REST API bereit</li>
+                    </ul>
+                </div>
+            </div>
+            <p style="margin-top:22px">Frontend und Backend liegen zusammen im <strong>Monorepo</strong> &mdash;
+                gemeinsame Konventionen, ein Ort für Doku (<code style="font-family:var(--mono);color:var(--accent)">README.md</code>,
+                <code style="font-family:var(--mono);color:var(--accent)">CLAUDE.md</code>,
+                <code style="font-family:var(--mono);color:var(--accent)">MIGRATION.md</code>) und eine
+                durchgängige CI/CD-Pipeline.</p>
+        </div>
+    </div>
+
+    <!-- 05 · AUTHENTICATION -->
+    <div class="step" data-x="6800" data-y="0">
+        <div class="panel">
+            <span class="sheet-tag">05 / 07</span>
+            <p class="kicker">Authentifizierung (#255 · #256)</p>
+            <h2>Login über GitHub — abgesichert</h2>
+            <p class="lead">Der Zugriff läuft über einen vorgeschalteten Proxy und einen zentralen
+                Identity-Broker; GitHub dient als Identity Provider.</p>
+            <div class="flow">
+                <div class="node">
+                    <span class="role">Nutzer</span>
+                    <div class="who">Browser</div>
+                    <p>ruft die App auf</p>
+                </div>
+                <div class="hop">→</div>
+                <div class="node">
+                    <span class="role">Gatekeeper</span>
+                    <div class="who">OAuth2-Proxy</div>
+                    <p>erzwingt Login vor der App</p>
+                </div>
+                <div class="hop">→</div>
+                <div class="node">
+                    <span class="role">Broker</span>
+                    <div class="who">Keycloak</div>
+                    <p>OAuth2 / OIDC Identity-Broker</p>
+                </div>
+                <div class="hop">→</div>
+                <div class="node">
+                    <span class="role">Identity Provider</span>
+                    <div class="who">GitHub</div>
+                    <p>authentifiziert den Nutzer</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 06 · DEPLOYMENT -->
+    <div class="step" data-x="8500" data-y="0">
+        <div class="panel">
+            <span class="sheet-tag">06 / 07</span>
+            <p class="kicker">Deployment &amp; Infrastruktur</p>
+            <h2>Container in, GitOps out</h2>
+            <div class="pipe">
+                <div class="stage">
+                    <span class="s-name">Build</span>
+                    <span class="s-tool">CI-Pipeline</span>
+                </div>
+                <div class="hop">→</div>
+                <div class="stage">
+                    <span class="s-name">Container</span>
+                    <span class="s-tool">Podman / Docker</span>
+                </div>
+                <div class="hop">→</div>
+                <div class="stage">
+                    <span class="s-name">Registry</span>
+                    <span class="s-tool">Image + Tag</span>
+                </div>
+                <div class="hop">→</div>
+                <div class="stage">
+                    <span class="s-name">Deploy</span>
+                    <span class="s-tool">ArgoCD · GitOps</span>
+                </div>
+            </div>
+            <p>Anwendungen werden <strong>containerisiert</strong> (Podman/Docker) und über
+                <strong>ArgoCD</strong> nach dem <strong>GitOps</strong>-Prinzip ausgerollt: Der
+                gewünschte Zustand steht in Git, ArgoCD gleicht das Cluster kontinuierlich damit ab.</p>
+        </div>
+    </div>
+
+    <!-- 07 · ENVIRONMENTS / CI-CD -->
+    <div class="step" data-x="10200" data-y="0">
+        <div class="panel">
+            <span class="sheet-tag">07 / 07</span>
+            <p class="kicker">Umgebungen &amp; CI/CD</p>
+            <h2>Drei Stufen bis zum Team</h2>
+            <div class="env-row">
+                <div class="env dev">
+                    <span class="badge">dev</span>
+                    <p>Kontinuierliche Integration neuer Änderungen — schnelles Feedback.</p>
+                </div>
+                <div class="env demo">
+                    <span class="badge">demo</span>
+                    <p>Vorführbarer Stand für Stakeholder und Reviews.</p>
+                </div>
+                <div class="env staging">
+                    <span class="badge">staging</span>
+                    <p>Produktionsnahe Absicherung vor dem finalen Rollout.</p>
+                </div>
+            </div>
+            <p style="margin-top:22px">Jeder Merge durchläuft die <strong>CI/CD-Pipeline</strong>:
+                Build &amp; Tests, Container-Build, dann GitOps-Deployment in die passende Umgebung.</p>
+        </div>
+    </div>
+
+    <!-- 08 · OUTRO / OVERVIEW -->
+    <div id="outro" class="step" data-x="5100" data-y="-2600" data-scale="3">
+        <p class="kicker" style="text-align:center">Das große Ganze</p>
+        <h2>Idee → Voting → Review → Projekt</h2>
+        <p class="lead" style="margin:0 auto">Angular vorne, Spring Boot / Java 25 hinten, PostgreSQL
+            als Speicher &mdash; abgesichert über Keycloak &amp; GitHub, containerisiert und per
+            ArgoCD-GitOps über dev, demo und staging ausgerollt.</p>
+        <ul class="map-legend">
+            <li><b>STACK</b> &nbsp;Angular · Spring Boot · Java 25 · PostgreSQL / H2</li>
+            <li><b>AUTH</b> &nbsp;OAuth2-Proxy · Keycloak · GitHub IdP</li>
+            <li><b>DEPLOY</b> &nbsp;Podman/Docker · ArgoCD · GitOps</li>
+            <li><b>ENVS</b> &nbsp;dev · demo · staging</li>
+        </ul>
+    </div>
+
+</div>
+
+<p class="hint">Navigation: → / Leertaste weiter · ← zurück · Schritt anklicken zum Zoomen</p>
+
+<script src="vendor/impress.js"></script>
+<script>impress().init();</script>
+
+</body>
+</html>
