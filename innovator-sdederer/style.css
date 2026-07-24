@@ -184,8 +184,10 @@ strong { color: var(--ink); }
     font-size: 13px;
     color: var(--ink-mute);
     display: flex;
+    justify-content: center;
     gap: 28px;
     flex-wrap: wrap;
+    text-align: center;
 }
 .cover-meta b { color: var(--ink-dim); font-weight: 500; }
 
@@ -468,8 +470,8 @@ strong { color: var(--ink); }
 .hint {
     position: fixed;
     bottom: 18px;
-    left: 0; right: 0;
-    text-align: center;
+    left: 24px; right: auto;
+    text-align: left;
     font-family: var(--mono);
     font-size: 12px;
     letter-spacing: 0.1em;
